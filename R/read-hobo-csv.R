@@ -18,44 +18,63 @@ check_hobo_csv_data <- function(data, file) {
   data
 }
 
-
-extract_meta_data_unit <- function(colnames) {
+extract_hobo_meta_data_unit <- function(colnames) {
   units <- str_extract_all(colnames,  "(?<=Temp, )(.{1,2})(?= [(LGR])")[[1]]
   if (!all(units == units[1]))
     error("more than one unit in colnames in file '", file, "'")
   units[1]
 }
 
-extract_meta_data_logger <- function(colnames) {
+extract_hobo_meta_data_logger <- function(colnames) {
   logger <- str_extract_all(colnames,  "(?<=LGR S[/]N[:] )(\\d+)(?=,)")[[1]]
   if (!all(logger == logger[1]))
     error("more than one logger id in colnames in file '", file, "'")
   logger[1]
 }
 
-extract_meta_data_tz <- function(colnames) {
+extract_hobo_meta_data_tz <- function(colnames) {
   tz <- str_extract_all(colnames,  "(?<=Date Time, )([^\n]{2,})(?=\n)")[[1]]
   if (!all(tz == tz[1]))
     error("more than one tz in colnames in file '", file, "'")
   tz[1]
 }
 
-extract_meta_data <- function(data) {
+extract_hobo_meta_data <- function(data) {
   colnames <- colnames(data) %>% str_c(collapse = "\n")
 
-  data_frame(Logger = extract_meta_data_logger(colnames),
-             Unit = extract_meta_data_unit(colnames),
-             TZ = extract_meta_data_tz(colnames))
+  data_frame(Logger = extract_hobo_meta_data_logger(colnames),
+             Unit = extract_hobo_meta_data_unit(colnames),
+             TZ = extract_hobo_meta_data_tz(colnames))
+}
+
+filter_hobo_data <- function(data, file) {
+  stopifnot(identical(colnames(data), c("FileRow", "DateTime", "Temperature", "CouplerDetached", "EndOfFile")))
+
+  start <- which(data$CouplerDetached == "Logged") %>% max()
+  end <- which(data$EndOfFile == "Logged")[1]
+
+  if ((start + 2) >= end) {
+    warning("no logged data in file '", file, "'")
+    return(slice_(data, 0))
+  }
+
+  data %<>% slice_(~(start+1):(end-1))
+  data %<>% filter_(~!is.na(Temperature))
+  data
 }
 
 read_hobo_csv_file <- function(file) {
-  data <- readr::read_csv(file, skip = 1)
+  suppressMessages(data <- readr::read_csv(file, skip = 1))
 
   check_hobo_csv_data(data, file)
 
-  meta <- extract_meta_data(data)
+  data <- data[,1:5]
 
-  data %<>% rename_()
+  meta <- extract_hobo_meta_data(data)
+
+  colnames(data) <- c("FileRow", "DateTime", "Temperature", "CouplerDetached", "EndOfFile")
+
+  data %<>% filter_hobo_data(file)
 
   data %<>% merge(meta)
 

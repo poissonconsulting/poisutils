@@ -1,12 +1,13 @@
 check_hobo_csv_data_colname <- function(colnames, pattern, which, file) {
-  if (which(str_detect(colnames, pattern)) != which)
-    error("column ", which, " in file '", file, "', does match the regular expression '", pattern, "'")
+  wch <- which(str_detect(colnames, pattern))
+  if (!length(wch) || wch != which)
+    error("column '", colnames[which], "' in file '", file, "', does match the regular expression '", pattern, "'")
 }
 
 check_hobo_csv_data_colnames <- function(data, file) {
   colnames <- colnames(data)
   check_hobo_csv_data_colname(colnames, "^#$", 1, file)
-  check_hobo_csv_data_colname(colnames, "^Date Time, ", 2, file)
+  check_hobo_csv_data_colname(colnames, "^Date Time, GMT", 2, file)
   check_hobo_csv_data_colname(colnames, "^Temp, ", 3, file)
   check_hobo_csv_data_colname(colnames, "^Coupler Detached [(]LGR S/N: ", 4, file)
   check_hobo_csv_data_colname(colnames, "^End Of File [(]LGR S/N: ", 5, file)
@@ -32,8 +33,8 @@ extract_hobo_meta_data_logger <- function(colnames) {
   logger[1]
 }
 
-extract_hobo_meta_data_tz <- function(colnames) {
-  tz <- str_extract_all(colnames,  "(?<=Date Time, )([^\n]{2,})(?=\n)")[[1]]
+extract_hobo_meta_data_tz_offset <- function(colnames) {
+  tz <- str_extract_all(colnames,  "(?<=Date Time, GMT)([^\n]{2,})(?=\n)")[[1]]
   if (!all(tz == tz[1]))
     error("more than one tz in colnames in file '", file, "'")
   tz[1]
@@ -44,7 +45,7 @@ extract_hobo_meta_data <- function(data) {
 
   data_frame(Logger = extract_hobo_meta_data_logger(colnames),
              TempUnits = extract_hobo_meta_data_temp_units(colnames),
-             TZ = extract_hobo_meta_data_tz(colnames))
+             TimeZoneOffset = extract_hobo_meta_data_tz_offset(colnames))
 }
 
 filter_hobo_data <- function(data, file) {
@@ -76,18 +77,16 @@ read_hobo_csv_file <- function(file, orders, temp_units, utc_offset_hr) {
 
   data %<>% filter_hobo_data(file)
 
-  data$DateTime %<>% lubridate::parse_date_time(orders = orders)
-
-  data %<>% merge(meta)
-
-  data$Temperature %<>% udunits2::ud.convert(data$TempUnits[1], temp_units)
-
-#  print(data)
-
-#  data %<>%
-
   data$FileName <- str_replace(basename(file), "[.]csv$", "")
   data$Directory <- dirname(file)
+
+  data$Logger <- meta$Logger
+
+  data$DateTime %<>% lubridate::parse_date_time(orders = orders, tz = "UTC")
+  data$DateTime %<>% magrittr::add(lubridate::hm(meta$TimeZoneOffset))
+  data$DateTime %<>% magrittr::subtract(utc_offset_hr)
+
+  data$Temperature %<>% udunits2::ud.convert(meta$TempUnits, temp_units)
 
   data %<>% select_(~Logger, ~DateTime, ~Temperature, ~FileRow, ~FileName, ~Directory)
 

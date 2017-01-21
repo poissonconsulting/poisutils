@@ -6,16 +6,24 @@ check_hobo_csv_data_colname <- function(colnames, pattern, file) {
 check_hobo_csv_data_colnames <- function(data, file) {
   colnames <- colnames(data)
   check_hobo_csv_data_colname(colnames, "^#$", file)
-  check_hobo_csv_data_colname(colnames, "^Date Time,", file)
-  check_hobo_csv_data_colname(colnames, "^Temp", file)
-  check_hobo_csv_data_colname(colnames, "^Coupler Detached [(]LGR S/N:", file)
-  check_hobo_csv_data_colname(colnames, "^End Of File [(]LGR S/N:", file)
+  check_hobo_csv_data_colname(colnames, "^Date Time, ", file)
+  check_hobo_csv_data_colname(colnames, "^Temp, ", file)
+  check_hobo_csv_data_colname(colnames, "^Coupler Detached [(]LGR S/N: ", file)
+  check_hobo_csv_data_colname(colnames, "^End Of File [(]LGR S/N: ", file)
   data
 }
 
 check_hobo_csv_data <- function(data, file) {
   check_hobo_csv_data_colnames(data, file)
   data
+}
+
+
+extract_meta_data_unit <- function(colnames) {
+  units <- str_extract_all(colnames,  "(?<=Temp, )(.{1,2})(?= [(LGR])")[[1]]
+  if (!all(units == units[1]))
+    error("more than one unit in colnames in file '", file, "'")
+  units[1]
 }
 
 extract_meta_data_logger <- function(colnames) {
@@ -25,10 +33,19 @@ extract_meta_data_logger <- function(colnames) {
   logger[1]
 }
 
+extract_meta_data_tz <- function(colnames) {
+  tz <- str_extract_all(colnames,  "(?<=Date Time, )([^\n]{2,})(?=\n)")[[1]]
+  if (!all(tz == tz[1]))
+    error("more than one tz in colnames in file '", file, "'")
+  tz[1]
+}
+
 extract_meta_data <- function(data) {
   colnames <- colnames(data) %>% str_c(collapse = "\n")
 
-  data_frame(Logger = extract_meta_data_logger(colnames))
+  data_frame(Logger = extract_meta_data_logger(colnames),
+             Unit = extract_meta_data_unit(colnames),
+             TZ = extract_meta_data_tz(colnames))
 }
 
 read_hobo_csv_file <- function(file) {

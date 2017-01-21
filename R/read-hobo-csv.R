@@ -18,12 +18,30 @@ check_hobo_csv_data <- function(data, file) {
   data
 }
 
+extract_meta_data_logger <- function(colnames) {
+  logger <- str_extract_all(colnames,  "(?<=LGR S[/]N[:] )(\\d+)(?=,)")[[1]]
+  if (!all(logger == logger[1]))
+    error("more than one logger id in colnames in file '", file, "'")
+  logger[1]
+}
+
+extract_meta_data <- function(data) {
+  colnames <- colnames(data) %>% str_c(collapse = "\n")
+
+  data_frame(Logger = extract_meta_data_logger(colnames))
+}
+
 read_hobo_csv_file <- function(file) {
   data <- readr::read_csv(file, skip = 1)
 
   check_hobo_csv_data(data)
 
-  # add checking colnames
+  meta <- extract_meta_data(data)
+
+  data %<>% merge(meta)
+
+  data$File <- basename(file)
+  data$Directory <- dirname(file)
   # also get temperature....
   #
 
@@ -36,10 +54,6 @@ read_hobo_csv_file <- function(file) {
 #
 #   dat <- read_csv(Loggerfile, skip=1)
 #
-#
-#   dat$FileName <- str_replace(Loggerfile,".*([/])([\\w\\s[.]]+)([.]csv$)", "\\2")
-#
-#   dat$FileDirectory <- str_replace(Loggerfile,".*([/])([\\w\\s[.]]+)([/][\\w\\s[.]]+[.]csv$)", "\\2")
 #
 #   dat$TZHobo <- str_replace(colnames(dat)[2],".*(\\w+\\s\\w+[,]\\s)", "\\")
 #

@@ -63,7 +63,7 @@ filter_hobo_data <- function(data, file) {
   data
 }
 
-read_hobo_csv_file <- function(file, orders) {
+read_hobo_csv_file <- function(file, orders, units) {
   suppressMessages(data <- readr::read_csv(file, skip = 1))
 
   check_hobo_csv_data(data, file)
@@ -80,11 +80,16 @@ read_hobo_csv_file <- function(file, orders) {
 
   data %<>% merge(meta)
 
-  data$File <- basename(file)
-  data$Directory <- dirname(file)
-  # also get temperature....
-  #
+#  print(data)
 
+#  data %<>%
+
+  data$FileName <- str_replace(basename(file), "[.]csv$", "")
+  data$Directory <- dirname(file)
+
+  data %<>% select_(~Logger, ~DateTime, ~Temperature, ~FileRow, ~FileName, ~Directory)
+
+  data %<>% as.tbl()
   data
 }
 #
@@ -123,23 +128,25 @@ read_hobo_csv_file <- function(file, orders) {
 #'
 #' @param file A string of the file or directory.
 #' @param orders A character vector of date-time formats used by \code{\link[lubridate]{parse_date_time}}.
+#' @param units A string of the units to convert the temperature data to using  \code{\link[udunits2]{ud.convert}}.
 #' @param recursive A flag indicating whether to read files from subdirectories.
 #' Ignored if file is a file (as opposed to a directory).
 #' @return A tibble of the data.
 #' @export
 #' @examples
 #' read_hobo_csv(system.file("hobo", "10723440.csv", package = "poisutils"))
-read_hobo_csv <- function(file = ".", orders = c("Ymd HMS", "dmy HMS"), recursive = FALSE) {
+read_hobo_csv <- function(file = ".", orders = c("Ymd HMS", "dmy HMS"), units = "degC", recursive = FALSE) {
   check_string(file)
+  check_string(units)
   check_flag(recursive)
 
   if (str_detect(file, "[.]csv$")) {
     if (recursive) warning("recursive ignored as file as a single file")
-    return(read_hobo_csv_file(file, orders))
+    return(read_hobo_csv_file(file, orders, units))
   }
   files <- list.files(file, pattern = "[.]csv$", full.names = TRUE)
   if (!length(files)) return(dplyr::data_frame(x = character(0)))
 
-  data <- lapply(files, read_hobo_csv_file, orders)
+  data <- lapply(files, read_hobo_csv_file, orders, units)
   data
 }

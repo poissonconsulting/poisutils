@@ -18,11 +18,11 @@ check_hobo_csv_data <- function(data, file) {
   data
 }
 
-extract_hobo_meta_data_units <- function(colnames) {
-  units <- str_extract_all(colnames,  "(?<=Temp, )(.{1,2})(?= [(LGR])")[[1]]
-  if (!all(units == units[1]))
+extract_hobo_meta_data_temp_units <- function(colnames) {
+  temp_units <- str_extract_all(colnames,  "(?<=Temp, )(.{1,2})(?= [(LGR])")[[1]]
+  if (!all(temp_units == temp_units[1]))
     error("more than one unit in colnames in file '", file, "'")
-  units[1]
+  temp_units[1]
 }
 
 extract_hobo_meta_data_logger <- function(colnames) {
@@ -43,7 +43,7 @@ extract_hobo_meta_data <- function(data) {
   colnames <- colnames(data) %>% str_c(collapse = "\n")
 
   data_frame(Logger = extract_hobo_meta_data_logger(colnames),
-             Units = extract_hobo_meta_data_units(colnames),
+             TempUnits = extract_hobo_meta_data_temp_units(colnames),
              TZ = extract_hobo_meta_data_tz(colnames))
 }
 
@@ -63,7 +63,7 @@ filter_hobo_data <- function(data, file) {
   data
 }
 
-read_hobo_csv_file <- function(file, orders, units) {
+read_hobo_csv_file <- function(file, orders, temp_units, utc_offset_hr) {
   suppressMessages(data <- readr::read_csv(file, skip = 1))
 
   check_hobo_csv_data(data, file)
@@ -80,7 +80,7 @@ read_hobo_csv_file <- function(file, orders, units) {
 
   data %<>% merge(meta)
 
-  data$Temperature %<>% udunits2::ud.convert(data$Units[1], units)
+  data$Temperature %<>% udunits2::ud.convert(data$TempUnits[1], temp_units)
 
 #  print(data)
 
@@ -91,7 +91,7 @@ read_hobo_csv_file <- function(file, orders, units) {
 
   data %<>% select_(~Logger, ~DateTime, ~Temperature, ~FileRow, ~FileName, ~Directory)
 
-  colnames(data)[3] <- str_c("Temperature", units, sep = "_")
+  colnames(data)[3] <- str_c("Temperature", temp_units, sep = "_")
 
   data %<>% as.tbl()
   data
@@ -132,25 +132,28 @@ read_hobo_csv_file <- function(file, orders, units) {
 #'
 #' @param file A string of the file or directory.
 #' @param orders A character vector of date-time formats used by \code{\link[lubridate]{parse_date_time}}.
-#' @param units A string of the units to convert the temperature data to using  \code{\link[udunits2]{ud.convert}}.
+#' @param temp_units A string of the units to convert the temperature data to using  \code{\link[udunits2]{ud.convert}}.
+#' @param utc_offset_hr A number of the UTC offset in hours (ie the returned date times are 'labelled' as UTC but are actually UTC - hours(utc_offset_hr).
 #' @param recursive A flag indicating whether to read files from subdirectories.
 #' Ignored if file is a file (as opposed to a directory).
 #' @return A tibble of the data with the temperature.
 #' @export
 #' @examples
 #' read_hobo_csv(system.file("hobo", "10723440.csv", package = "poisutils"))
-read_hobo_csv <- function(file = ".", orders = c("Ymd HMS", "dmy HMS"), units = "degC", recursive = FALSE) {
+read_hobo_csv <- function(file = ".", orders = c("Ymd HMS", "dmy HMS"),
+                          temp_units = "degC", utc_offset_hr = -8, recursive = FALSE) {
   check_string(file)
-  check_string(units)
+  check_string(temp_units)
+  check_number(utc_offset_hr)
   check_flag(recursive)
 
   if (str_detect(file, "[.]csv$")) {
     if (recursive) warning("recursive ignored as file is a single file")
-    return(read_hobo_csv_file(file, orders, units))
+    return(read_hobo_csv_file(file, orders, temp_units, utc_offset_hr))
   }
   files <- list.files(file, pattern = "[.]csv$", full.names = TRUE)
   if (!length(files)) return(dplyr::data_frame(x = character(0)))
 
-  data <- lapply(files, read_hobo_csv_file, orders, units)
+  data <- lapply(files, read_hobo_csv_file, orders, temp_units, utc_offset_hr)
   data
 }

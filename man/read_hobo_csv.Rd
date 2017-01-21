@@ -18,7 +18,7 @@ read_hobo_csv(file = ".", orders = c("Ymd HMS", "dmy HMS"),
 Ignored if file is a file (as opposed to a directory).}
 }
 \value{
-A tibble of the data.
+A tibble of the data with the temperature.
 }
 \description{
 Read Hobo CSVs

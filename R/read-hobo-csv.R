@@ -18,7 +18,7 @@ check_hobo_csv_data <- function(data, file) {
   data
 }
 
-extract_hobo_meta_data_unit <- function(colnames) {
+extract_hobo_meta_data_units <- function(colnames) {
   units <- str_extract_all(colnames,  "(?<=Temp, )(.{1,2})(?= [(LGR])")[[1]]
   if (!all(units == units[1]))
     error("more than one unit in colnames in file '", file, "'")
@@ -43,7 +43,7 @@ extract_hobo_meta_data <- function(data) {
   colnames <- colnames(data) %>% str_c(collapse = "\n")
 
   data_frame(Logger = extract_hobo_meta_data_logger(colnames),
-             Unit = extract_hobo_meta_data_unit(colnames),
+             Units = extract_hobo_meta_data_units(colnames),
              TZ = extract_hobo_meta_data_tz(colnames))
 }
 
@@ -80,6 +80,8 @@ read_hobo_csv_file <- function(file, orders, units) {
 
   data %<>% merge(meta)
 
+  data$Temperature %<>% udunits2::ud.convert(data$Units[1], units)
+
 #  print(data)
 
 #  data %<>%
@@ -88,6 +90,8 @@ read_hobo_csv_file <- function(file, orders, units) {
   data$Directory <- dirname(file)
 
   data %<>% select_(~Logger, ~DateTime, ~Temperature, ~FileRow, ~FileName, ~Directory)
+
+  colnames(data)[3] <- str_c("Temperature", units, sep = "_")
 
   data %<>% as.tbl()
   data
@@ -131,7 +135,7 @@ read_hobo_csv_file <- function(file, orders, units) {
 #' @param units A string of the units to convert the temperature data to using  \code{\link[udunits2]{ud.convert}}.
 #' @param recursive A flag indicating whether to read files from subdirectories.
 #' Ignored if file is a file (as opposed to a directory).
-#' @return A tibble of the data.
+#' @return A tibble of the data with the temperature.
 #' @export
 #' @examples
 #' read_hobo_csv(system.file("hobo", "10723440.csv", package = "poisutils"))
@@ -141,7 +145,7 @@ read_hobo_csv <- function(file = ".", orders = c("Ymd HMS", "dmy HMS"), units = 
   check_flag(recursive)
 
   if (str_detect(file, "[.]csv$")) {
-    if (recursive) warning("recursive ignored as file as a single file")
+    if (recursive) warning("recursive ignored as file is a single file")
     return(read_hobo_csv_file(file, orders, units))
   }
   files <- list.files(file, pattern = "[.]csv$", full.names = TRUE)

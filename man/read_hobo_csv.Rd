@@ -4,13 +4,16 @@
 \alias{read_hobo_csv}
 \title{Read Hobo CSVs}
 \usage{
-read_hobo_csv(file = ".", recursive = FALSE)
+read_hobo_csv(file = ".", orders = c("Ymd HMS", "dmy HMS"),
+  recursive = FALSE)
 }
 \arguments{
 \item{file}{A string of the file or directory.}
 
+\item{orders}{A character vector of date-time formats used by \code{\link[lubridate]{parse_date_time}}.}
+
 \item{recursive}{A flag indicating whether to read files from subdirectories.
-Ignore if dir is a file.}
+Ignored if file is a file (as opposed to a directory).}
 }
 \value{
 A tibble of the data.

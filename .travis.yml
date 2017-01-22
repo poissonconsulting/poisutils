@@ -8,7 +8,7 @@ r:
 r_packages:
   - covr
 
-r_binary_packages:
+apt_packages:
   - udunits2
 
 after_success:

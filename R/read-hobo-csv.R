@@ -152,9 +152,18 @@ read_hobo_csv <- function(file = ".", orders = c("Ymd HMS", "dmy HMS"),
     if (recursive) warning("recursive ignored as file is a single file")
     return(read_hobo_csv_file(file, orders, temp_units, utc_offset_hr))
   }
-  files <- list.files(file, pattern = "[.]csv$", full.names = TRUE)
-  if (!length(files)) return(dplyr::data_frame(x = character(0)))
-
+  files <- list.files(file, pattern = "[.]csv$", full.names = TRUE, recursive = recursive)
+  if (!length(files)) {
+    warning("no .csv files found")
+    datetime <- Sys.time()
+    lubridate::tz(datetime) <- "UTC"
+    data <- dplyr::data_frame(Logger = "", DateTime = datetime,
+                             Temperature = 1, FileRow = 1L,
+                             FileName = "", Directory = "")
+    data %<>% slice_(~0)
+    return(data)
+  }
   data <- lapply(files, read_hobo_csv_file, orders, temp_units, utc_offset_hr)
+  data %<>% bind_rows()
   data
 }

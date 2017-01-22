@@ -15,9 +15,8 @@ rename_hobo_data <- function(data, temp_units, utc_offset_hr) {
 }
 
 check_hobo_csv_data_colname <- function(colnames, pattern, which, file) {
-  wch <- which(str_detect(colnames, pattern))
-  if (!length(wch) || wch != which)
-    error("a column '", colnames[which], "' in file '", file, "', does not match the regular expression '", pattern, "'")
+  if (!str_detect(colnames[which], pattern))
+    error("Column '", colnames[which], "' in file '", file, "', does not match the regular expression '", pattern, "'")
 }
 
 check_hobo_csv_data_colnames <- function(data, file) {
@@ -25,7 +24,9 @@ check_hobo_csv_data_colnames <- function(data, file) {
   check_hobo_csv_data_colname(colnames, "^#$", 1, file)
   check_hobo_csv_data_colname(colnames, "^Date Time, GMT", 2, file)
   check_hobo_csv_data_colname(colnames, "^Temp, ", 3, file)
-  check_hobo_csv_data_colname(colnames, "^(Coupler Attached|Coupler Detached|Stopped) [(]LGR S/N: ", 4, file)
+  for (i in 4:(ncol(data) - 1)) {
+    check_hobo_csv_data_colname(colnames, "^(Coupler Attached)|(Coupler Detached)|Stopped [(]LGR S/N: ", i, file)
+  }
   check_hobo_csv_data_colname(colnames, "^End Of File [(]LGR S/N: ", ncol(data), file)
   data
 }
@@ -65,10 +66,8 @@ extract_hobo_meta_data <- function(data) {
 }
 
 filter_hobo_data <- function(data, file) {
-  stopifnot(identical(colnames(data), c("FileRow", "DateTime", "Temperature", "CouplerDetached", "EndOfFile")))
-
-  start <- which(data$CouplerDetached == "Logged") %>% max()
-  end <- which(data$EndOfFile == "Logged")[1]
+  start <- which(data[[4]] == "Logged") %>% max()
+  end <- which(data[[5]] == "Logged")[1]
 
   if ((start + 2) >= end) {
     return(slice_(data, 0))
@@ -88,7 +87,9 @@ read_hobo_csv_file <- function(file, orders, temp_units, utc_offset_hr, quiet) {
 
   meta <- extract_hobo_meta_data(data)
 
-  colnames(data) <- c("FileRow", "DateTime", "Temperature", "CouplerDetached", "EndOfFile")
+  colnames(data)[1:3] <- c("FileRow", "DateTime", "Temperature")
+  colnames(data)[ncol(data)] <- "EndOfFile"
+  colnames(data)[4:(ncol(data) - 1)] <- str_replace(colnames(data)[4:(ncol(data)-1)], "^(Coupler Attached|Coupler Detached|Stopped)( [(]LGR S/N:.*)", "\\1") %>% str_replace(" ", "")
 
   data %<>% filter_hobo_data(file)
 
@@ -116,37 +117,6 @@ read_hobo_csv_file <- function(file, orders, temp_units, utc_offset_hr, quiet) {
   data %<>% as.tbl()
   data
 }
-#
-# Loggerfunc <- function(Loggerfile) {
-#
-#   stopifnot(is.character(Loggerfile))
-#
-#   dat <- read_csv(Loggerfile, skip=1)
-#
-#
-#   dat$TZHobo <- str_replace(colnames(dat)[2],".*(\\w+\\s\\w+[,]\\s)", "\\")
-#
-#
-#   colnames(dat)[2] <- 'DateTime'
-#   colnames(dat)[3] <- 'Temperature'
-#   dat$Logger <- str_replace(colnames(dat)[5], ".*(\\sS[/]N[:]\\s)(\\d+)[)]$", "\\2")
-#   dat %<>% select(DateTime, Temperature, Logger, TZHobo, FileName, FileDirectory)
-#
-#
-#   dat$DateTime %<>% dmy_hms()
-#
-#   dat %<>% mutate(TempYear = year(DateTime))
-#   dat %<>% mutate(TempMonth = month(DateTime))
-#   dat %<>% mutate(TempDay = day(DateTime))
-#   dat %<>% mutate(TempHour = hour(DateTime))
-#   dat %<>% mutate(TempMinute = minute(DateTime))
-#   dat %<>% mutate(TempSecond = second(DateTime))
-#
-#   dat$DateTime <- NULL
-#
-#   return(dat)
-# }
-
 
 #' Read Hobo CSVs
 #'

@@ -5,15 +5,14 @@
 \title{Read Hobo CSVs}
 \usage{
 read_hobo_csv(file = ".", orders = c("Ymd HMS", "dmy HMS"),
-  temp_units = "degC", utc_offset_hr = -8, recursive = FALSE,
-  quiet = FALSE)
+  units = "degC", utc_offset_hr = -8, recursive = FALSE, quiet = FALSE)
 }
 \arguments{
 \item{file}{A string of the file or directory.}
 
 \item{orders}{A character vector of date-time formats used by \code{\link[lubridate]{parse_date_time}}.}
 
-\item{temp_units}{A string of the units to convert the temperature data to using  \code{\link[udunits2]{ud.convert}}.}
+\item{units}{A string of the units to convert the temperature data to using  \code{\link[udunits2]{ud.convert}}.}
 
 \item{utc_offset_hr}{A number of the UTC offset in hours (ie the returned date times are 'labelled' as UTC but are actually UTC - hours(utc_offset_hr).}
 

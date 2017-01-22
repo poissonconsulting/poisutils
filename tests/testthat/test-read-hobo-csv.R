@@ -12,7 +12,7 @@ test_that("can read a single hobo csv file", {
 })
 
 test_that("can read a single hobo csv file converting to farenheit and utc_offset 0", {
-  data <- read_hobo_csv(system.file("hobo", "10723440.csv", package = "poisutils"), quiet = TRUE, temp_units = "degF", utc_offset_hr = 0)
+  data <- read_hobo_csv(system.file("hobo", "10723440.csv", package = "poisutils"), quiet = TRUE, units = "degF", utc_offset_hr = 0)
   expect_identical(colnames(data), c("Logger", "DateTime_p0", "Temperature_degF", "FileRow", "FileName", "Directory"))
   expect_identical(nrow(data), 9L)
   expect_identical(lubridate::tz(data$DateTime_p0), "UTC")

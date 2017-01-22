@@ -5,7 +5,8 @@
 \title{Read Hobo CSVs}
 \usage{
 read_hobo_csv(file = ".", orders = c("Ymd HMS", "dmy HMS"),
-  temp_units = "degC", utc_offset_hr = -8, recursive = FALSE)
+  temp_units = "degC", utc_offset_hr = -8, recursive = FALSE,
+  quiet = FALSE)
 }
 \arguments{
 \item{file}{A string of the file or directory.}
@@ -16,7 +17,9 @@ read_hobo_csv(file = ".", orders = c("Ymd HMS", "dmy HMS"),
 
 \item{utc_offset_hr}{A number of the UTC offset in hours (ie the returned date times are 'labelled' as UTC but are actually UTC - hours(utc_offset_hr).}
 
-\item{recursive}{A flag indicating whether to read files from subdirectories.
+\item{recursive}{A flag indicating whether to read files from subdirectories.}
+
+\item{quiet}{A flag indicating whether to provide messages.
 Ignored if file is a file (as opposed to a directory).}
 }
 \value{

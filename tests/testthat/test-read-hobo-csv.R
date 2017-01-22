@@ -1,7 +1,7 @@
 context("read-hobo-csv")
 
 test_that("can read a single hobo csv file", {
-  data <- read_hobo_csv(system.file("hobo", "10723440.csv", package = "poisutils"))
+  data <- read_hobo_csv(system.file("hobo", "10723440.csv", package = "poisutils"), quiet = TRUE)
   expect_is(data, "tbl")
   expect_identical(colnames(data), c("Logger", "DateTime_m8", "Temperature_degC", "FileRow", "FileName", "Directory"))
   expect_identical(nrow(data), 9L)
@@ -12,7 +12,7 @@ test_that("can read a single hobo csv file", {
 })
 
 test_that("can read a single hobo csv file converting to farenheit and utc_offset 0", {
-  data <- read_hobo_csv(system.file("hobo", "10723440.csv", package = "poisutils"), temp_units = "degF", utc_offset_hr = 0)
+  data <- read_hobo_csv(system.file("hobo", "10723440.csv", package = "poisutils"), quiet = TRUE, temp_units = "degF", utc_offset_hr = 0)
   expect_identical(colnames(data), c("Logger", "DateTime_p0", "Temperature_degF", "FileRow", "FileName", "Directory"))
   expect_identical(nrow(data), 9L)
   expect_identical(lubridate::tz(data$DateTime_p0), "UTC")
@@ -21,8 +21,15 @@ test_that("can read a single hobo csv file converting to farenheit and utc_offse
   expect_equal(data$Temperature_degF[1:2], c(62.7908, 61.1186))
 })
 
+test_that("can read a single stopped hobo csv file", {
+  data <- read_hobo_csv(system.file("hobo", "10328118.csv", package = "poisutils"), quiet = TRUE, temp_units = "degF", utc_offset_hr = 0)
+  expect_identical(colnames(data), c("Logger", "DateTime_p0", "Temperature_degF", "FileRow", "FileName", "Directory"))
+  expect_identical(nrow(data), 0L)
+  expect_identical(lubridate::tz(data$DateTime_p0), "UTC")
+})
+
 test_that("can read multiple hobo csv file", {
-  data <- read_hobo_csv(system.file("hobo", package = "poisutils"), recursive = TRUE)
+  data <- read_hobo_csv(system.file("hobo", package = "poisutils"), quiet = TRUE, recursive = TRUE)
   expect_is(data, "tbl")
   expect_identical(colnames(data), c("Logger", "DateTime_m8", "Temperature_degC", "FileRow", "FileName", "Directory"))
   expect_identical(nrow(data), 22L)

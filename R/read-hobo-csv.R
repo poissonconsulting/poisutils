@@ -1,3 +1,19 @@
+no_hobo_data <- function() {
+  datetime <- Sys.time()
+  lubridate::tz(datetime) <- "UTC"
+  data <- dplyr::data_frame(Logger = "", DateTime = datetime,
+                            Temperature = 1, FileRow = 1L,
+                            FileName = "", Directory = "")
+  data %<>% slice_(~0)
+  data
+}
+
+rename_hobo_data <- function(data, temp_units, utc_offset_hr) {
+  colnames(data)[2] <- str_c("DateTime_", ifelse(utc_offset_hr >= 0, "p", "m"), abs(utc_offset_hr))
+  colnames(data)[3] <- str_c("Temperature_", temp_units)
+  data
+}
+
 check_hobo_csv_data_colname <- function(colnames, pattern, which, file) {
   wch <- which(str_detect(colnames, pattern))
   if (!length(wch) || wch != which)
@@ -9,7 +25,7 @@ check_hobo_csv_data_colnames <- function(data, file) {
   check_hobo_csv_data_colname(colnames, "^#$", 1, file)
   check_hobo_csv_data_colname(colnames, "^Date Time, GMT", 2, file)
   check_hobo_csv_data_colname(colnames, "^Temp, ", 3, file)
-  check_hobo_csv_data_colname(colnames, "^Coupler Detached [(]LGR S/N: ", 4, file)
+  check_hobo_csv_data_colname(colnames, "^(Coupler Detached|Stopped) [(]LGR S/N: ", 4, file)
   check_hobo_csv_data_colname(colnames, "^End Of File [(]LGR S/N: ", 5, file)
   data
 }
@@ -55,7 +71,6 @@ filter_hobo_data <- function(data, file) {
   end <- which(data$EndOfFile == "Logged")[1]
 
   if ((start + 2) >= end) {
-    warning("no logged data in file '", file, "'")
     return(slice_(data, 0))
   }
 
@@ -64,7 +79,7 @@ filter_hobo_data <- function(data, file) {
   data
 }
 
-read_hobo_csv_file <- function(file, orders, temp_units, utc_offset_hr) {
+read_hobo_csv_file <- function(file, orders, temp_units, utc_offset_hr, quiet) {
   suppressMessages(data <- readr::read_csv(file, skip = 1))
 
   check_hobo_csv_data(data, file)
@@ -77,22 +92,26 @@ read_hobo_csv_file <- function(file, orders, temp_units, utc_offset_hr) {
 
   data %<>% filter_hobo_data(file)
 
-  data$FileName <- str_replace(basename(file), "[.]csv$", "")
-  data$Directory <- dirname(file)
+  if (nrow(data)) {
 
-  data$Logger <- meta$Logger
+    data$FileName <- str_replace(basename(file), "[.]csv$", "")
+    data$Directory <- dirname(file)
 
-  data$DateTime %<>% lubridate::parse_date_time(orders = orders, tz = "UTC")
+    data$Logger <- meta$Logger
 
-  data$DateTime %<>% magrittr::subtract(lubridate::hm(meta$TimeZoneOffset))
-  data$DateTime %<>% magrittr::add(lubridate::hours(utc_offset_hr))
+    data$DateTime %<>% lubridate::parse_date_time(orders = orders, tz = "UTC")
 
-  data$Temperature %<>% udunits2::ud.convert(meta$TempUnits, temp_units)
+    data$DateTime %<>% magrittr::subtract(lubridate::hm(meta$TimeZoneOffset))
+    data$DateTime %<>% magrittr::add(lubridate::hours(utc_offset_hr))
 
-  data %<>% select_(~Logger, ~DateTime, ~Temperature, ~FileRow, ~FileName, ~Directory)
+    data$Temperature %<>% udunits2::ud.convert(meta$TempUnits, temp_units)
+    data %<>% select_(~Logger, ~DateTime, ~Temperature, ~FileRow, ~FileName, ~Directory)
+  } else
+    data <- no_hobo_data()
 
-  colnames(data)[2] <- str_c("DateTime_", ifelse(utc_offset_hr >= 0, "p", "m"), abs(utc_offset_hr))
-  colnames(data)[3] <- str_c("Temperature_", temp_units)
+  data %<>% rename_hobo_data(temp_units, utc_offset_hr)
+
+  if (!quiet) message("imported ", nrow(data), " rows of data from '", file, "'")
 
   data %<>% as.tbl()
   data
@@ -136,34 +155,33 @@ read_hobo_csv_file <- function(file, orders, temp_units, utc_offset_hr) {
 #' @param temp_units A string of the units to convert the temperature data to using  \code{\link[udunits2]{ud.convert}}.
 #' @param utc_offset_hr A number of the UTC offset in hours (ie the returned date times are 'labelled' as UTC but are actually UTC - hours(utc_offset_hr).
 #' @param recursive A flag indicating whether to read files from subdirectories.
+#' @param quiet A flag indicating whether to provide messages.
 #' Ignored if file is a file (as opposed to a directory).
 #' @return A tibble of the data with the temperature.
 #' @export
 #' @examples
 #' read_hobo_csv(system.file("hobo", "10723440.csv", package = "poisutils"))
 read_hobo_csv <- function(file = ".", orders = c("Ymd HMS", "dmy HMS"),
-                          temp_units = "degC", utc_offset_hr = -8, recursive = FALSE) {
+                          temp_units = "degC", utc_offset_hr = -8, recursive = FALSE,
+                          quiet = FALSE) {
   check_string(file)
   check_string(temp_units)
   check_number(utc_offset_hr)
   check_flag(recursive)
+  check_flag(quiet)
 
   if (str_detect(file, "[.]csv$")) {
     if (recursive) warning("recursive ignored as file is a single file")
-    return(read_hobo_csv_file(file, orders, temp_units, utc_offset_hr))
+    return(read_hobo_csv_file(file, orders, temp_units, utc_offset_hr, quiet))
   }
   files <- list.files(file, pattern = "[.]csv$", full.names = TRUE, recursive = recursive)
   if (!length(files)) {
     warning("no .csv files found")
-    datetime <- Sys.time()
-    lubridate::tz(datetime) <- "UTC"
-    data <- dplyr::data_frame(Logger = "", DateTime = datetime,
-                             Temperature = 1, FileRow = 1L,
-                             FileName = "", Directory = "")
-    data %<>% slice_(~0)
+    data <- no_hobo_data()
+    data %<>% rename_hobo_data(temp_units, utc_offset_hr)
     return(data)
   }
-  data <- lapply(files, read_hobo_csv_file, orders, temp_units, utc_offset_hr)
+  data <- lapply(files, read_hobo_csv_file, orders, temp_units, utc_offset_hr, quiet)
   data %<>% bind_rows()
   data
 }

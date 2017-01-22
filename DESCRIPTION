@@ -1,6 +1,6 @@
 Package: poisutils
 Title: Poisson Consulting's Utility Functions
-Version: 0.0.0.9000
+Version: 0.0.0.9001
 Authors@R: person("Joe", "Thorley", email = "joe@poissonconsulting.ca", role = c("aut", "cre"))
 Description: Poisson Consulting's Utility Functions.
 Depends:

@@ -21,11 +21,12 @@ test_that("can read a single hobo csv file converting to farenheit and utc_offse
   expect_equal(data$Temperature_degF[1:2], c(62.7908, 61.1186))
 })
 
-test_that("can read multipl hobo csv file", {
-  data <- read_hobo_csv(system.file("hobo", package = "poisutils"))
+test_that("can read multiple hobo csv file", {
+  data <- read_hobo_csv(system.file("hobo", package = "poisutils"), recursive = TRUE)
   expect_is(data, "tbl")
   expect_identical(colnames(data), c("Logger", "DateTime_m8", "Temperature_degC", "FileRow", "FileName", "Directory"))
-  expect_identical(nrow(data), 9L)
+  expect_identical(nrow(data), 22L)
+  expect_identical(unique(data$Logger), c("10723440", "10723450"))
   expect_identical(lubridate::tz(data$DateTime_m8), "UTC")
   expect_equal(lubridate::hour(data$DateTime_m8[1:2]), c(7L,7L))
   expect_equal(lubridate::minute(data$DateTime_m8[1:2]), c(23L,28L))

@@ -25,7 +25,7 @@ check_hobo_csv_data_colnames <- function(data, file) {
   check_hobo_csv_data_colname(colnames, "^Date Time, GMT", 2, file)
   check_hobo_csv_data_colname(colnames, "^Temp, ", 3, file)
   for (i in 4:(ncol(data) - 1)) {
-    check_hobo_csv_data_colname(colnames, "^(Coupler Attached)|(Coupler Detached)|Stopped [(]LGR S/N: ", i, file)
+    check_hobo_csv_data_colname(colnames, "^(Batt, V)|(Coupler Attached)|(Coupler Detached)|Stopped [(]LGR S/N: ", i, file)
   }
   check_hobo_csv_data_colname(colnames, "^End Of File [(]LGR S/N: ", ncol(data), file)
   data
@@ -74,7 +74,6 @@ filter_hobo_data <- function(data, file) {
   }
 
   data %<>% slice_(~(start+1):(end-1))
-  data %<>% filter_(~!is.na(Temperature))
   data
 }
 
@@ -83,13 +82,13 @@ read_hobo_csv_file <- function(file, orders, temp_units, utc_offset_hr, quiet) {
 
   check_hobo_csv_data(data, file)
 
-  data <- data[,1:5]
-
   meta <- extract_hobo_meta_data(data)
 
   colnames(data)[1:3] <- c("FileRow", "DateTime", "Temperature")
   colnames(data)[ncol(data)] <- "EndOfFile"
-  colnames(data)[4:(ncol(data) - 1)] <- str_replace(colnames(data)[4:(ncol(data)-1)], "^(Coupler Attached|Coupler Detached|Stopped)( [(]LGR S/N:.*)", "\\1") %>% str_replace(" ", "")
+  colnames(data)[4:(ncol(data) - 1)] <- str_replace(colnames(data)[4:(ncol(data) - 1)], "^(Batt, V|Coupler Attached|Coupler Detached|Stopped)( [(]LGR S/N:.*)", "\\1") %>% str_replace_all(",| ", "")
+
+  if (tibble::has_name(data, "BattV")) data$BattV <- NULL
 
   data %<>% filter_hobo_data(file)
 
@@ -153,5 +152,6 @@ read_hobo_csv <- function(file = ".", orders = c("Ymd HMS", "dmy HMS"),
   }
   data <- lapply(files, read_hobo_csv_file, orders, temp_units, utc_offset_hr, quiet)
   data %<>% bind_rows()
+  data %<>% arrange_(~Logger)
   data
 }

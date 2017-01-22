@@ -35,15 +35,21 @@ test_that("can read a more complicated hobo csv file", {
   expect_identical(lubridate::tz(data$DateTime_m8), "UTC")
 })
 
+test_that("can read an even more complicated hobo csv file", {
+  data <- read_hobo_csv(system.file("hobo", "M3.csv", package = "poisutils"), quiet = TRUE)
+  expect_identical(colnames(data), c("Logger", "DateTime_m8", "Temperature_degC", "FileRow", "FileName", "Directory"))
+  expect_identical(nrow(data), 4L)
+})
+
 test_that("can read multiple hobo csv file", {
   data <- read_hobo_csv(system.file("hobo", package = "poisutils"), quiet = TRUE, recursive = TRUE)
   expect_is(data, "tbl")
   expect_identical(colnames(data), c("Logger", "DateTime_m8", "Temperature_degC", "FileRow", "FileName", "Directory"))
-  expect_identical(nrow(data), 24L)
-  expect_identical(unique(data$Logger), c("10328122", "10723440", "10723450"))
+  expect_identical(nrow(data), 28L)
+  expect_identical(unique(data$Logger), sort(c("10328122", "10723440", "10723450", "10171286")))
   expect_identical(lubridate::tz(data$DateTime_m8), "UTC")
-  expect_equal(lubridate::hour(data$DateTime_m8[1:2]), c(6L,10L))
-  expect_equal(lubridate::minute(data$DateTime_m8[1:2]), c(0L,15L))
-  expect_equal(data$Temperature_degC[1:2], c(26.769, 9.262))
+  expect_equal(lubridate::hour(data$DateTime_m8[1:2]), c(17L,17L))
+  expect_equal(lubridate::minute(data$DateTime_m8[1:2]), c(1L,16L))
+  expect_equal(data$Temperature_degC[1:2], c(13.81, 12.558))
 })
 

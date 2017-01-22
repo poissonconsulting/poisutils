@@ -10,8 +10,9 @@ Imports:
     dplyr,
     lubridate,
     magrittr,
-    stringr,
     readr,
+    stringr,
+    tibble,
     udunits2
 License: MIT + file LICENSE
 Encoding: UTF-8

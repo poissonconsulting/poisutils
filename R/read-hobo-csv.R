@@ -23,7 +23,6 @@ check_hobo_csv_data_colnames <- function(data, file) {
   check_hobo_csv_data_colname(colnames, "^#$", 1, file)
   check_hobo_csv_data_colname(colnames, "^Date Time, GMT", 2, file)
   check_hobo_csv_data_colname(colnames, "^Temp, ", 3, file)
-  check_hobo_csv_data_colname(colnames, "^End Of File [(]LGR S/N: ", ncol(data), file)
   data
 }
 
@@ -32,33 +31,22 @@ check_hobo_csv_data <- function(data, file) {
   data
 }
 
-extract_hobo_meta_data_units <- function(colnames) {
-  units <- str_extract_all(colnames,  "(?<=Temp, )(.{1,2})(?= [(LGR])")[[1]]
-  if (!all(units == units[1]))
-    error("more than one unit in colnames in file '", file, "'")
-  units[1]
+extract_hobo_meta_data_units <- function(colname) {
+  str_extract(colname,  "(?<=Temp, )(.{1,2})(?= [(LGR])")[[1]]
 }
 
-extract_hobo_meta_data_logger <- function(colnames) {
-  logger <- str_extract_all(colnames,  "(?<=LGR S[/]N[:] )(\\d+)(?=,|[)])")[[1]]
-  if (!all(logger == logger[1]))
-    error("more than one logger id in colnames in file '", file, "'")
-  logger[1]
+extract_hobo_meta_data_logger <- function(colname) {
+  str_extract(colname,  "(?<=LGR S[/]N[:] )(\\d+)(?=,|[)])")[[1]]
 }
 
-extract_hobo_meta_data_tz_offset <- function(colnames) {
-  tz <- str_extract_all(colnames,  "(?<=Date Time, GMT)([^\n]{2,})(?=\n)")[[1]]
-  if (!all(tz == tz[1]))
-    error("more than one tz in colnames in file '", file, "'")
-  tz[1]
+extract_hobo_meta_data_tz_offset <- function(colname) {
+  str_extract(colname,  "(?<=^Date Time, GMT)([^\n]{2,})(?=$)")[[1]]
 }
 
-extract_hobo_meta_data <- function(data) {
-  colnames <- colnames(data) %>% str_c(collapse = "\n")
-
-  data_frame(Logger = extract_hobo_meta_data_logger(colnames),
-             TempUnits = extract_hobo_meta_data_units(colnames),
-             TimeZoneOffset = extract_hobo_meta_data_tz_offset(colnames))
+extract_hobo_meta_data <- function(colnames) {
+  data_frame(Logger = extract_hobo_meta_data_logger(colnames[3]),
+             TempUnits = extract_hobo_meta_data_units(colnames[3]),
+             TimeZoneOffset = extract_hobo_meta_data_tz_offset(colnames[2]))
 }
 
 read_hobo_csv_file <- function(file, orders, units, tz, quiet) {
@@ -66,7 +54,7 @@ read_hobo_csv_file <- function(file, orders, units, tz, quiet) {
 
   check_hobo_csv_data(data, file)
 
-  meta <- extract_hobo_meta_data(data)
+  meta <- extract_hobo_meta_data(colnames(data))
 
   data <- data[,1:3]
   colnames(data) <- c("FileRow", "DateTime", "Temperature")

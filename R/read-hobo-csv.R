@@ -17,7 +17,7 @@ rename_hobo_data <- function(data, temp_units, utc_offset_hr) {
 check_hobo_csv_data_colname <- function(colnames, pattern, which, file) {
   wch <- which(str_detect(colnames, pattern))
   if (!length(wch) || wch != which)
-    error("column '", colnames[which], "' in file '", file, "', does match the regular expression '", pattern, "'")
+    error("a column '", colnames[which], "' in file '", file, "', does not match the regular expression '", pattern, "'")
 }
 
 check_hobo_csv_data_colnames <- function(data, file) {
@@ -25,8 +25,8 @@ check_hobo_csv_data_colnames <- function(data, file) {
   check_hobo_csv_data_colname(colnames, "^#$", 1, file)
   check_hobo_csv_data_colname(colnames, "^Date Time, GMT", 2, file)
   check_hobo_csv_data_colname(colnames, "^Temp, ", 3, file)
-  check_hobo_csv_data_colname(colnames, "^(Coupler Detached|Stopped) [(]LGR S/N: ", 4, file)
-  check_hobo_csv_data_colname(colnames, "^End Of File [(]LGR S/N: ", 5, file)
+  check_hobo_csv_data_colname(colnames, "^(Coupler Attached|Coupler Detached|Stopped) [(]LGR S/N: ", 4, file)
+  check_hobo_csv_data_colname(colnames, "^End Of File [(]LGR S/N: ", ncol(data), file)
   data
 }
 

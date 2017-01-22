@@ -24,7 +24,7 @@ check_hobo_csv_data_colnames <- function(data, file) {
   check_hobo_csv_data_colname(colnames, "^Date Time, GMT", 2, file)
   check_hobo_csv_data_colname(colnames, "^Temp, ", 3, file)
   for (i in 4:(ncol(data) - 1)) {
-    check_hobo_csv_data_colname(colnames, "^(Batt, V)|(Coupler Attached)|(Coupler Detached)|Stopped [(]LGR S/N: ", i, file)
+    check_hobo_csv_data_colname(colnames, "^(Good Battery)|(Batt, V)|(Coupler Attached)|(Coupler Detached)|Stopped [(]LGR S/N: ", i, file)
   }
   check_hobo_csv_data_colname(colnames, "^End Of File [(]LGR S/N: ", ncol(data), file)
   data
@@ -43,7 +43,7 @@ extract_hobo_meta_data_units <- function(colnames) {
 }
 
 extract_hobo_meta_data_logger <- function(colnames) {
-  logger <- str_extract_all(colnames,  "(?<=LGR S[/]N[:] )(\\d+)(?=,)")[[1]]
+  logger <- str_extract_all(colnames,  "(?<=LGR S[/]N[:] )(\\d+)(?=,|[)])")[[1]]
   if (!all(logger == logger[1]))
     error("more than one logger id in colnames in file '", file, "'")
   logger[1]
@@ -85,9 +85,10 @@ read_hobo_csv_file <- function(file, orders, units, tz, quiet) {
 
   colnames(data)[1:3] <- c("FileRow", "DateTime", "Temperature")
   colnames(data)[ncol(data)] <- "EndOfFile"
-  colnames(data)[4:(ncol(data) - 1)] <- str_replace(colnames(data)[4:(ncol(data) - 1)], "^(Batt, V|Coupler Attached|Coupler Detached|Stopped)( [(]LGR S/N:.*)", "\\1") %>% str_replace_all(",| ", "")
+  colnames(data)[4:(ncol(data) - 1)] <- str_replace(colnames(data)[4:(ncol(data) - 1)], "^(Good Battery|Batt, V|Coupler Attached|Coupler Detached|Stopped)( [(]LGR S/N:.*)", "\\1") %>% str_replace_all(",| ", "")
 
   if (tibble::has_name(data, "BattV")) data$BattV <- NULL
+  if (tibble::has_name(data, "GoodBattery")) data$GoodBattery <- NULL
 
   data %<>% filter_hobo_data(file)
 

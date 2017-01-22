@@ -41,12 +41,19 @@ test_that("can read an even more complicated hobo csv file", {
   expect_identical(nrow(data), 4L)
 })
 
+test_that("can read an hobo csv file with good battery", {
+  data <- read_hobo_csv(system.file("hobo", "MBB1.csv", package = "poisutils"), quiet = TRUE)
+  expect_identical(colnames(data), c("Logger", "DateTime", "Temperature_degC", "FileRow", "FileName", "Directory"))
+  expect_true(all(data$Logger == "2391458"))
+  expect_identical(nrow(data), 4L)
+})
+
 test_that("can read multiple hobo csv file", {
   data <- read_hobo_csv(system.file("hobo", package = "poisutils"), quiet = TRUE, recursive = TRUE)
   expect_is(data, "tbl")
   expect_identical(colnames(data), c("Logger", "DateTime", "Temperature_degC", "FileRow", "FileName", "Directory"))
-  expect_identical(nrow(data), 28L)
-  expect_identical(unique(data$Logger), sort(c("10328122", "10723440", "10723450", "10171286")))
+  expect_identical(nrow(data), 32L)
+  expect_identical(unique(data$Logger), sort(c("10328122", "10723440", "10723450", "10171286", "2391458")))
   expect_identical(lubridate::tz(data$DateTime), "Etc/GMT+8")
   expect_equal(lubridate::hour(data$DateTime[1:2]), c(17L,17L))
   expect_equal(lubridate::minute(data$DateTime[1:2]), c(1L,16L))

@@ -32,7 +32,10 @@ check_hobo_csv_data <- function(data, file) {
 }
 
 extract_hobo_meta_data_units <- function(colname) {
-  str_extract(colname,  "(?<=Temp, )(.{1,2})(?= [(LGR])")[[1]]
+  unit <- str_extract(colname,  "(?<=Temp, )(.{1,3})(?= [(LGR])")[[1]]
+  unit %<>% str_replace("[?][?]C", "degC")
+  unit %<>% str_replace("[?][?]F", "degF")
+  unit
 }
 
 extract_hobo_meta_data_logger <- function(colname) {

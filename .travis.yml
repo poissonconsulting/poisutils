@@ -1,15 +1,16 @@
 language: R
+sudo: true
 cache: packages
 
 r:
   - release
   - devel
 
+apt_packages:
+  - libudunits2-dev
+
 r_packages:
   - covr
-
-apt_packages:
-  - udunits2
 
 after_success:
   - Rscript -e 'covr::codecov()'

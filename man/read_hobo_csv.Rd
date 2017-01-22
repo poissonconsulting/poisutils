@@ -5,7 +5,7 @@
 \title{Read Hobo CSVs}
 \usage{
 read_hobo_csv(file = ".", orders = c("Ymd HMS", "dmy HMS"),
-  units = "degC", utc_offset_hr = -8, recursive = FALSE, quiet = FALSE)
+  units = "degC", tz = "Etc/GMT+8", recursive = FALSE, quiet = FALSE)
 }
 \arguments{
 \item{file}{A string of the file or directory.}
@@ -14,7 +14,7 @@ read_hobo_csv(file = ".", orders = c("Ymd HMS", "dmy HMS"),
 
 \item{units}{A string of the units to convert the temperature data to using  \code{\link[udunits2]{ud.convert}}.}
 
-\item{utc_offset_hr}{A number of the UTC offset in hours (ie the returned date times are 'labelled' as UTC but are actually UTC - hours(utc_offset_hr).}
+\item{tz}{A string of the time zone to convert the date times to using \code{\link[lubridate]{with_tz}}.}
 
 \item{recursive}{A flag indicating whether to read files from subdirectories.}
 

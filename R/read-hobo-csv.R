@@ -83,14 +83,16 @@ read_hobo_csv_file <- function(file, orders, temp_units, utc_offset_hr) {
   data$Logger <- meta$Logger
 
   data$DateTime %<>% lubridate::parse_date_time(orders = orders, tz = "UTC")
-  data$DateTime %<>% magrittr::add(lubridate::hm(meta$TimeZoneOffset))
-  data$DateTime %<>% magrittr::subtract(utc_offset_hr)
+
+  data$DateTime %<>% magrittr::subtract(lubridate::hm(meta$TimeZoneOffset))
+  data$DateTime %<>% magrittr::add(lubridate::hours(utc_offset_hr))
 
   data$Temperature %<>% udunits2::ud.convert(meta$TempUnits, temp_units)
 
   data %<>% select_(~Logger, ~DateTime, ~Temperature, ~FileRow, ~FileName, ~Directory)
 
-  colnames(data)[3] <- str_c("Temperature", temp_units, sep = "_")
+  colnames(data)[2] <- str_c("DateTime_", ifelse(utc_offset_hr >= 0, "p", "m"), abs(utc_offset_hr))
+  colnames(data)[3] <- str_c("Temperature_", temp_units)
 
   data %<>% as.tbl()
   data

@@ -12,4 +12,6 @@ A character scalar
 \description{
 Gets current user as defined by operating system.
 }
-
+\examples{
+user()
+}

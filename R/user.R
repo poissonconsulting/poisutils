@@ -4,6 +4,8 @@
 #'
 #' @return A character scalar
 #' @export
+#' @examples
+#' user()
 user <- function() {
   user <- Sys.info()["user"]
   names(user) <- NULL

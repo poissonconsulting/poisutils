@@ -1,21 +1,15 @@
 Package: poisutils
 Title: Poisson Consulting's Utility Functions
-Version: 0.0.0.9001
+Version: 0.0.0.9002
+Date: 2017-09-06
 Authors@R: person("Joe", "Thorley", email = "joe@poissonconsulting.ca", role = c("aut", "cre"))
-Description: Poisson Consulting's Utility Functions.
-Depends:
-    R (>= 3.3.1)
-Imports:
-    datacheckr,
-    dplyr,
-    lubridate,
-    magrittr,
-    readr,
-    stringr,
-    tibble,
-    udunits2
+Description: Utility functions for Poisson Consulting's scripts and packages.
 License: MIT + file LICENSE
+Depends: R (>= 3.3.1)
+Suggests: testthat,
+          covr
+URL: https://github.com/poissonconsulting/poissqlite
+BugReports: https://github.com/poissonconsulting/poissqlite/issues
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 5.0.1
-Suggests: testthat
+RoxygenNote: 6.0.1

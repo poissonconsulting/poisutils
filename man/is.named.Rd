@@ -18,4 +18,3 @@ Test if named
 \examples{
 is.named(1)
 }
-

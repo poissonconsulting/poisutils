@@ -67,6 +67,18 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#poisutils" class="anchor"></a>poisutils</h1></div>
 <p>An R package of utility functions for Poisson Consulting’s scripts and packages.</p>
+<div id="demonstration" class="section level2">
+<h2 class="hasAnchor">
+<a href="#demonstration" class="anchor"></a>Demonstration</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(poisutils)
+
+x &lt;-<span class="st"> </span><span class="dv">1</span>
+<span class="kw"><a href="reference/is.named.html">is.named</a></span>(x)
+<span class="co">#&gt; [1] FALSE</span>
+<span class="kw">names</span>(x) &lt;-<span class="st"> "one"</span>
+<span class="kw"><a href="reference/is.named.html">is.named</a></span>(x)
+<span class="co">#&gt; [1] TRUE</span></code></pre></div>
+</div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>

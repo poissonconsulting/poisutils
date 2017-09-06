@@ -7,6 +7,20 @@ poisutils
 
 An R package of utility functions for Poisson Consulting's scripts and packages.
 
+Demonstration
+-------------
+
+``` r
+library(poisutils)
+
+x <- 1
+is.named(x)
+#> [1] FALSE
+names(x) <- "one"
+is.named(x)
+#> [1] TRUE
+```
+
 Installation
 ------------
 

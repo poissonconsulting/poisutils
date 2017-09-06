@@ -23,6 +23,17 @@ knitr::opts_chunk$set(
 
 An R package of utility functions for Poisson Consulting's scripts and packages.
 
+## Demonstration
+
+```{r demonstration}
+library(poisutils)
+
+x <- 1
+is.named(x)
+names(x) <- "one"
+is.named(x)
+```
+
 ## Installation
 
 ```{r gh-installation, eval = FALSE}

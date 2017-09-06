@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Error Message — error • poisutils</title>
+<title>Diagnostic Message — ps_message • poisutils</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -80,14 +80,14 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Error Message</h1>
+    <h1>Diagnostic Message</h1>
     </div>
 
     
-    <p>Stops execution with an error message.</p>
+    <p>Generates a diagnostic message.</p>
     
 
-    <pre class="usage"><span class='fu'>error</span>(<span class='no'>...</span>, <span class='kw'>call.</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>ps_message</span>(<span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -95,13 +95,8 @@
     <tr>
       <th>...</th>
       <td><p>zero or more objects which can be coerced to character
-    (and which are pasted together with no separator) or a single
-    condition object.</p></td>
-    </tr>
-    <tr>
-      <th>call.</th>
-      <td><p>logical, indicating if the call should become part of the
-    error message.</p></td>
+    (and which are pasted together with no separator) or (for
+    <code>message</code> only) a single condition object.</p></td>
     </tr>
     </table>
     

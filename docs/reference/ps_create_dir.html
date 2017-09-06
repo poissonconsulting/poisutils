@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Error Message — error • poisutils</title>
+<title>Create Directory — ps_create_dir • poisutils</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -80,30 +80,31 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Error Message</h1>
+    <h1>Create Directory</h1>
     </div>
 
     
-    <p>Stops execution with an error message.</p>
+    <p>Create Directory</p>
     
 
-    <pre class="usage"><span class='fu'>error</span>(<span class='no'>...</span>, <span class='kw'>call.</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>ps_create_dir</span>(<span class='no'>dir</span>, <span class='kw'>ask</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>...</th>
-      <td><p>zero or more objects which can be coerced to character
-    (and which are pasted together with no separator) or a single
-    condition object.</p></td>
+      <th>dir</th>
+      <td><p>A string of the directory name</p></td>
     </tr>
     <tr>
-      <th>call.</th>
-      <td><p>logical, indicating if the call should become part of the
-    error message.</p></td>
+      <th>ask</th>
+      <td><p>A flag indicating whether to ask before creating a new directory.</p></td>
     </tr>
     </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>An invisible flag indicating whether the directory exists.</p>
     
 
   </div>
@@ -111,7 +112,9 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#value">Value</a></li>
+          </ul>
 
   </div>
 </div>

@@ -5,7 +5,9 @@ Date: 2017-09-06
 Authors@R: person("Joe", "Thorley", email = "joe@poissonconsulting.ca", role = c("aut", "cre"))
 Description: Utility functions for Poisson Consulting's scripts and packages.
 License: MIT + file LICENSE
-Depends: R (>= 3.3.1)
+Depends:  R (>= 3.3.0)
+Imports:  datacheckr,
+          yesno
 Suggests: testthat,
           covr
 URL: https://github.com/poissonconsulting/poissqlite

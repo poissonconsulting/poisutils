@@ -10,8 +10,8 @@ Imports:  datacheckr,
           yesno
 Suggests: testthat,
           covr
-URL: https://github.com/poissonconsulting/poissqlite
-BugReports: https://github.com/poissonconsulting/poissqlite/issues
+URL: https://github.com/poissonconsulting/poisutils
+BugReports: https://github.com/poissonconsulting/poisutils/issues
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1

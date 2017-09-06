@@ -12,6 +12,6 @@ test_that("package", {
   expect_true(is.named(user))
 
   dir <- file.path(tempdir(), "temp")
-  dir.create(dir)
+  expect_true(ps_create_dir(dir, ask = FALSE))
   expect_true(ps_create_dir(dir))
 })

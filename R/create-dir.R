@@ -13,7 +13,7 @@ ps_create_dir <- function(dir, ask = TRUE) {
   if (ask && !yesno("Create directory '", dir, "'?"))
     return(invisible(FALSE))
 
-  dir.create(showWarnings = FALSE, recursive = TRUE)
+  dir.create(path = dir, showWarnings = FALSE, recursive = TRUE)
 
   invisible(TRUE)
 }

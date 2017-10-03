@@ -2,6 +2,7 @@
 
 export(error)
 export(is.named)
+export(is.syntactic)
 export(ps_create_dir)
 export(ps_error)
 export(ps_message)

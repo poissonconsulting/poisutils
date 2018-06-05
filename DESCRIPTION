@@ -1,7 +1,7 @@
 Package: poisutils
 Title: Poisson Consulting's Utility Functions
-Version: 0.0.0.9005
-Date: 2018-02-07
+Version: 0.0.0.9006
+Date: 2018-06-05
 Authors@R: person("Joe", "Thorley", email = "joe@poissonconsulting.ca", role = c("aut", "cre"))
 Description: Utility functions for Poisson Consulting's scripts and packages.
 License: MIT + file LICENSE
@@ -9,6 +9,7 @@ URL: https://github.com/poissonconsulting/poisutils
 BugReports: https://github.com/poissonconsulting/poisutils/issues
 Depends:  R (>= 3.3.0)
 Imports:  checkr,
+          utils,
           yesno
 Suggests: testthat,
           covr

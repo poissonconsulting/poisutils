@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Test if named — is.named • poisutils</title>
+<title>Simple Moving Average — ps_sma • poisutils</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -28,9 +28,9 @@
 
 
 
-<meta property="og:title" content="Test if named — is.named" />
+<meta property="og:title" content="Simple Moving Average — ps_sma" />
 
-<meta property="og:description" content="Test if named" />
+<meta property="og:description" content="Returns the simple moving average with a window of 2 * n." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -94,35 +94,43 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Test if named</h1>
-    <small class="dont-index">Source: <a href='https://github.com/poissonconsulting/poisutils/blob/master/R/named.R'><code>R/named.R</code></a></small>
-    <div class="hidden name"><code>is.named.Rd</code></div>
+    <h1>Simple Moving Average</h1>
+    <small class="dont-index">Source: <a href='https://github.com/poissonconsulting/poisutils/blob/master/R/sma.R'><code>R/sma.R</code></a></small>
+    <div class="hidden name"><code>ps_sma.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Test if named</p>
+    <p>Returns the simple moving average with a window of <code>2 * n</code>.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>is.named</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>ps_sma</span>(<span class='no'>x</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>the object to test</p></td>
+      <td><p>An integer or double vector.</p></td>
+    </tr>
+    <tr>
+      <th>n</th>
+      <td><p>A positive integer of the window before and after each value.</p></td>
+    </tr>
+    <tr>
+      <th>na.rm</th>
+      <td><p>A flag indicating whether to ignore missing values when calculating the mean.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A logical scalar indicating whether named</p>
+    <p>A double vector.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>is.named</span>(<span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] FALSE</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>ps_sma</span>(<span class='fl'>1</span>:<span class='fl'>4</span>)</div><div class='output co'>#&gt; [1] 1.5 2.0 3.0 3.5</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

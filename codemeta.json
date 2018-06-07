@@ -10,7 +10,7 @@
   "codeRepository": "https://github.com/poissonconsulting/poisutils",
   "issueTracker": "https://github.com/poissonconsulting/poisutils/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.0.0.9006",
+  "version": "0.0.0.9007",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -99,5 +99,5 @@
   ],
   "contIntegration": "https://travis-ci.org/poissonconsulting/poisutils",
   "readme": "https://github.com/poissonconsulting/poisutils/blob/master/README.md",
-  "fileSize": "5.51KB"
+  "fileSize": "6.028KB"
 }

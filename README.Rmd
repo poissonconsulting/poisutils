@@ -9,7 +9,6 @@ output: github_document
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/poissonconsulting/poisutils?branch=master&svg=true)](https://ci.appveyor.com/project/poissonconsulting/poisutils)
 [![Coverage Status](https://img.shields.io/codecov/c/github/poissonconsulting/poisutils/master.svg)](https://codecov.io/github/poissonconsulting/poisutils?branch=master)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/poisutils)](https://cran.r-project.org/package=poisutils)
 
 ```{r, echo = FALSE}
 knitr::opts_chunk$set(

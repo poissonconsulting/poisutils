@@ -5,7 +5,6 @@
 \alias{poisutils}
 \alias{package-poisutils}
 \alias{poisutils-package}
-\alias{poisutils-package}
 \title{poisutils}
 \description{
 Utility functions for Poisson Consulting's scripts and packages.

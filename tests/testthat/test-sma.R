@@ -1,5 +1,3 @@
-context("sma")
-
 test_that("sma", {
   expect_equal(ps_sma(1:4, 0L), c(1, 2, 3, 4))
   expect_equal(ps_sma(1:4), c(1.5, 2, 3, 3.5))

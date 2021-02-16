@@ -1,5 +1,3 @@
-context("punctuate")
-
 test_that("punctuate", {
   expect_identical(ps_punctuate(1), "1")
   expect_identical(ps_punctuate(1:2), "1 or 2")

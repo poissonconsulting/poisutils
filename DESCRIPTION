@@ -6,7 +6,6 @@ Description: Utility functions for Poisson Consulting's scripts and packages.
 License: MIT + file LICENSE
 Depends: R (>= 3.3.0)
 Imports: chk,
-         checkr,
           utils,
           yesno
 Suggests: testthat,

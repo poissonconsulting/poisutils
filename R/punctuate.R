@@ -36,6 +36,7 @@ ps_plural <- function(x, n = 1L, end = "") {
   chk_string(x)
   n <- as.integer(n)
   chk_whole_number(n)
+  chk_integer(n)
   chk_gte(n)
   chk_string(end)
   paste0(x, ifelse(n != 1L, "s", ""), end)

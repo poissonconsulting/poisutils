@@ -12,6 +12,7 @@
 #' @export
 ps_round_preserve_sum <- function(x, digits = 0L) {
   digits <- as.integer(digits)
+  chk_whole_number(digits)
   chk_integer(digits)
   chk_gte(digits)
   up <- 10^digits

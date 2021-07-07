@@ -40,7 +40,8 @@ ps_prop_change <- function(x, y) {
 #' ps_prop_change(3, c(3, 1, 9))
 #' ps_prop2nfold_change(ps_prop_change(3, c(3, 1, 9)))
 ps_prop2nfold_change <- function(x) {
-  check_vector(x, 1)
+  chk_vector(x)
+  check_values(x, 1)
   if(!length(x)) return(x)
   ifelse(x >= 0, x, -(x+1)^-1+1)
 }

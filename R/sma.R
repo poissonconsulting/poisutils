@@ -10,9 +10,11 @@
 #' @examples
 #' ps_sma(1:4)
 ps_sma <- function(x, n = 1L, na.rm = FALSE) {
-  checkor(check_vector(x, c(1, NA)), check_vector(x, c(1L, NA)))
-  check_scalar(n, c(0L, length(x)))
-  check_flag(na.rm)
+  chk_vector(x)
+  chkor(check_values(x, c(1, NA)), check_values(x, c(1L, NA)))
+  chk_scalar(n)
+  check_values(n, c(0L, length(x)))
+  chk_flag(na.rm)
   if(n == 0L) return(x)
 
   start <- apply(data.frame(1, 1:length(x) - n), 1, max)

@@ -11,8 +11,9 @@
 #' sum(ps_round_preserve_sum(c(0.33, 0.33, 0.33), 1))
 #' @export
 ps_round_preserve_sum <- function(x, digits = 0L) {
-  digits <- check_count(digits, coerce = TRUE)
-
+  digits <- as.integer(digits)
+  chk_integer(digits)
+  chk_gte(digits)
   up <- 10^digits
   x <- x * up
   y <- floor(x)

@@ -5,7 +5,8 @@ Authors@R: person("Joe", "Thorley", email = "joe@poissonconsulting.ca", role = c
 Description: Utility functions for Poisson Consulting's scripts and packages.
 License: MIT + file LICENSE
 Depends: R (>= 3.3.0)
-Imports: checkr,
+Imports: chk,
+         checkr,
           utils,
           yesno
 Suggests: testthat,

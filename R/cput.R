@@ -7,7 +7,7 @@
 #' @return An invisible copy to the object.
 #' @seealso [`dput()`]
 #' @export
-cput <- function(x, allow_non_interactive = Sys.getenv("CLIPR_ALLOW", interactive())) {
+cput <- function(x, allow_non_interactive = FALSE) {
   chk_flag(allow_non_interactive)
   str <- capture.output(dput(x))
   write_clip(str, object_type = "character", allow_non_interactive = allow_non_interactive)

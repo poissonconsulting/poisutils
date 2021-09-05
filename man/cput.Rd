@@ -4,7 +4,7 @@
 \alias{cput}
 \title{Write an Object to the Clipboard}
 \usage{
-cput(x, allow_non_interactive = Sys.getenv("CLIPR_ALLOW", interactive()))
+cput(x, allow_non_interactive = FALSE)
 }
 \arguments{
 \item{x}{An object.}

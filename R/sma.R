@@ -10,10 +10,9 @@
 #' @examples
 #' ps_sma(1:4)
 ps_sma <- function(x, n = 1L, na.rm = FALSE) {
-  chk_vector(x)
-  chkor(check_values(x, c(1, NA)), check_values(x, c(1L, NA)))
-  chk_scalar(n)
-  check_values(n, c(0L, length(x)))
+  chk_whole_numeric(x)
+  chk_count(n)
+  check_dim(n, values = c(0L, length(x)))
   chk_flag(na.rm)
   if(n == 0L) return(x)
 

@@ -6,7 +6,7 @@ test_that("package", {
   expect_error(ps_error())
   expect_warning(ps_warning())
   user <- user()
-  expect_is(user, "character")
+  expect_type(user, "character")
   expect_identical(length(user), 1L)
 
   expect_false(is.named(user))

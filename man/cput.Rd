@@ -4,19 +4,24 @@
 \alias{cput}
 \title{Write an Object to the Clipboard}
 \usage{
-cput(x, allow_non_interactive = FALSE)
+cput(x = NULL, envir = parent.frame())
 }
 \arguments{
-\item{x}{An object.}
+\item{x}{An object or NULL if R code in the clipboard is to be evaluated and then write}
 
-\item{allow_non_interactive}{A flag specifying whether to allow
-writing to the clipboard in an non-interactive session.}
+\item{envir}{An environment in which the contents of the clipboard are to be evaluated if x is \code{NULL}.}
 }
 \value{
 An invisible copy to the object.
 }
 \description{
-Write an Object to the Clipboard
+Writes an object (or the evaluated contents of the clipboard) to the clipboard.
+}
+\details{
+Useful for pasting relatively simple objects into examples or tests.
+}
+\examples{
+cput(data.frame(x = 1))
 }
 \seealso{
 \code{\link[=dput]{dput()}}

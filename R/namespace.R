@@ -1,5 +1,5 @@
 #' @import chk
 #' @importFrom utils capture.output
 #' @importFrom yesno yesno
-#' @importFrom clipr write_clip
+#' @importFrom clipr read_clip write_clip
 NULL

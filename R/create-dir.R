@@ -5,8 +5,8 @@
 #' @return An invisible flag indicating whether the directory exists.
 #' @export
 ps_create_dir <- function(dir, ask = TRUE) {
-  check_string(dir)
-  check_flag(ask)
+  chk_string(dir)
+  chk_flag(ask)
 
   if (dir.exists(dir)) return(invisible(TRUE))
 

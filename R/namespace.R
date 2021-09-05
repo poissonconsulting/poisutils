@@ -1,3 +1,3 @@
-#' @import checkr
+#' @import chk
 #' @importFrom yesno yesno
 NULL

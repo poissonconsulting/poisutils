@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>poisutils — poisutils • poisutils</title>
+<title>Write an Object to the Clipboard — cput • poisutils</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="poisutils — poisutils" />
-<meta property="og:description" content="Utility functions for Poisson Consulting's scripts and packages." />
+<meta property="og:title" content="Write an Object to the Clipboard — cput" />
+<meta property="og:description" content="Write an Object to the Clipboard" />
 
 
 
@@ -113,20 +113,37 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>poisutils</h1>
-    <small class="dont-index">Source: <a href='https://github.com/poissonconsulting/poisutils/blob/master/R/package.R'><code>R/package.R</code></a></small>
-    <div class="hidden name"><code>poisutils.Rd</code></div>
+    <h1>Write an Object to the Clipboard</h1>
+    <small class="dont-index">Source: <a href='https://github.com/poissonconsulting/poisutils/blob/master/R/cput.R'><code>R/cput.R</code></a></small>
+    <div class="hidden name"><code>cput.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Utility functions for Poisson Consulting's scripts and packages.</p>
+    <p>Write an Object to the Clipboard</p>
     </div>
 
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>cput</span><span class='op'>(</span><span class='va'>x</span>, allow_non_interactive <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span><span class='op'>(</span><span class='st'>"CLIPR_ALLOW"</span>, <span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></code></pre></div>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>An object.</p></td>
+    </tr>
+    <tr>
+      <th>allow_non_interactive</th>
+      <td><p>A flag specifying whether to allow
+writing to the clipboard in an non-interactive session.</p></td>
+    </tr>
+    </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>An invisible copy to the object.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='https://github.com/poissonconsulting/poisutils'>https://github.com/poissonconsulting/poisutils</a></p></div>
+    <div class='dont-index'><p><code><a href='https://rdrr.io/r/base/dput.html'>dput()</a></code></p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

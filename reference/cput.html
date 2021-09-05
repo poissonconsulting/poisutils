@@ -40,7 +40,7 @@
 
 
 <meta property="og:title" content="Write an Object to the Clipboard — cput" />
-<meta property="og:description" content="Write an Object to the Clipboard" />
+<meta property="og:description" content="Writes an object (or the evaluated contents of the clipboard) to the clipboard." />
 
 
 
@@ -119,32 +119,39 @@
     </div>
 
     <div class="ref-description">
-    <p>Write an Object to the Clipboard</p>
+    <p>Writes an object (or the evaluated contents of the clipboard) to the clipboard.</p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>cput</span><span class='op'>(</span><span class='va'>x</span>, allow_non_interactive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></code></pre></div>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>cput</span><span class='op'>(</span>x <span class='op'>=</span> <span class='cn'>NULL</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>An object.</p></td>
+      <td><p>An object or NULL if R code in the clipboard is to be evaluated and then write</p></td>
     </tr>
     <tr>
-      <th>allow_non_interactive</th>
-      <td><p>A flag specifying whether to allow
-writing to the clipboard in an non-interactive session.</p></td>
+      <th>envir</th>
+      <td><p>An environment in which the contents of the clipboard are to be evaluated if x is <code>NULL</code>.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>An invisible copy to the object.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Useful for pasting relatively simple objects into examples or tests.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/base/dput.html'>dput()</a></code></p></div>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='fu'>cput</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> structure(list(x = 1), class = "data.frame", row.names = c(NA, </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> -1L))</span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

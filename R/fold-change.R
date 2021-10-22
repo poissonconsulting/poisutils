@@ -9,8 +9,18 @@
 #' @examples
 #' nfold_change(3, c(3, 1, 9))
 nfold_change <- function(x, y) {
+  chk_numeric(x)
+  chk_numeric(y)
+  chk_gte(x)
+  chk_gte(y)
+  if(!length(x)) return(numeric(0))
+  if(!length(y)) return(numeric(0))
+
   x <- y / x
-  ifelse(x >= 1, x - 1, -x^-1 + 1)
+  is_nan <- is.nan(x)
+  z <- ifelse(x >= 1, x - 1, -x^-1 + 1)
+  z[is_nan] <- 0
+  z
 }
 
 #' Fold Change
@@ -24,7 +34,14 @@ nfold_change <- function(x, y) {
 #' @examples
 #' fold_change(3, c(3, 1, 9))
 fold_change <- function(x, y) {
-  y / x
+  chk_numeric(x)
+  chk_numeric(y)
+  chk_gte(x)
+  chk_gte(y)
+
+  z <- y / x
+  z[is.nan(z)] <- 0
+  z
 }
 
 #' Proportional Change
@@ -38,7 +55,14 @@ fold_change <- function(x, y) {
 #' @examples
 #' prop_change(3, c(3, 1, 9))
 prop_change <- function(x, y) {
-  (y - x) / x
+  chk_numeric(x)
+  chk_numeric(y)
+  chk_gte(x)
+  chk_gte(y)
+
+  z <- (y - x) / x
+  z[is.nan(z)] <- 0
+  z
 }
 
 #' Proportional Change to n-Fold Change
@@ -56,7 +80,7 @@ prop2nfold <- function(x) {
   chk_vector(x)
   check_values(x, 1)
   if(!length(x)) return(x)
-  ifelse(x >= 0, x, -(x+1)^-1+1)
+  ifelse(x >= 1, x, -(x+1)^-1+1)
 }
 
 #' n-Fold Change to Proportional Change

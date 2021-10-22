@@ -1,37 +1,66 @@
-test_that("nfold_change", {
-  expect_equal(nfold_change(3, c(3, 1, 9)), c(0, -2, 2))
-  expect_equal(nfold_change(1, c(10, -1, 6)), c(9, 2, 5))
-  expect_equal(nfold_change(-6, c(3, -1, 6)), c(3, -5, 2))
+test_that("prop_change edge cases", {
+  expect_equal(prop_change(numeric(0), numeric(0)), numeric(0))
+  expect_equal(prop_change(numeric(0), 1), numeric(0))
+  expect_equal(prop_change(1, numeric(0)), numeric(0))
+  expect_equal(prop_change(1, numeric(0)), numeric(0))
+  expect_equal(prop_change(1, NA_real_), NA_real_)
+  expect_equal(prop_change(Inf, 1), Inf)
+
+  expect_equal(prop_change(NA_real_, 1), NA_real_)
 })
 
-test_that("prop_change", {
-  expect_equal(prop_change(3, c(3, 1, 9)), c(0, -0.66666667, 2))
-  expect_equal(prop_change(1, c(10, -1, 6)), c(9, -2, 5))
-  expect_equal(prop_change(-6, c(3, -1, 6)), c(-1.5, -0.83333333, -2))
+test_that("prop_change correct values", {
+  expect_equal(prop_change(1, c(1, 2, 3, 0)), c(0, 1, 2, -1))
+  expect_equal(prop_change(0, c(0, 1, 2)), c(0, Inf, Inf))
+  expect_equal(prop_change(3, c(3, 1, 9, 0)), c(0, -2/3, 2, -1))
 })
 
-test_that("foldchange", {
-  expect_equal(fold_change(3, c(3, 1, 9)), c(1, .333333333, 3))
-  expect_equal(fold_change(1, c(10, -1, 6)), c(10, -1, 6))
-  expect_equal(fold_change(-6, c(3, -1, 6)), c(-0.5, 0.166666667, -1))
+test_that("fold_change edge cases", {
+  expect_equal(fold_change(numeric(0), numeric(0)), numeric(0))
+  expect_equal(fold_change(numeric(0), 1), numeric(0))
+  expect_equal(fold_change(1, numeric(0)), numeric(0))
+  expect_equal(fold_change(1, numeric(0)), numeric(0))
+  expect_equal(fold_change(1, NA_real_), NA_real_)
+  expect_equal(fold_change(NA_real_, 1), NA_real_)
+})
+
+test_that("fold_change correct values", {
+  expect_equal(fold_change(1, c(1, 2, 3, 0)), c(1, 2, 3, 0))
+  expect_equal(fold_change(0, c(0, 1, 2)), c(0, Inf, Inf))
+  expect_equal(fold_change(3, c(3, 1, 9, 0)), c(1, 1/3, 3, 0))
+})
+
+test_that("nfold_change edge cases", {
+  expect_equal(nfold_change(numeric(0), numeric(0)), numeric(0))
+  expect_equal(nfold_change(numeric(0), numeric(0)), numeric(0))
+  expect_equal(nfold_change(numeric(0), 1), numeric(0))
+  expect_equal(nfold_change(1, numeric(0)), numeric(0))
+  expect_equal(nfold_change(1, numeric(0)), numeric(0))
+  expect_equal(nfold_change(1, NA_real_), NA_real_)
+  expect_equal(nfold_change(NA_real_, 1), NA_real_)
+})
+
+test_that("nfold_change correct values", {
+  expect_equal(nfold_change(1, c(1, 2, 3, 0)), c(0, 1, 2, -Inf))
+  expect_equal(nfold_change(0, c(0, 1, 2)), c(0, Inf, Inf))
+  expect_equal(nfold_change(3, c(3, 1, 9, 0)), c(0, -2, 2, -Inf))
+  expect_equal(nfold_change(4,2), nfold_change(2,4) * -1)
 })
 
 test_that("fold2nfold", {
   expect_equal(fold2nfold(fold_change(3, c(3, 1, 9))),
                nfold_change(3, c(3, 1, 9)))
-  expect_equal(fold2nfold(fold_change(1, c(10, -1, 6))),
-               nfold_change(1, c(10, -1, 6)))
-  expect_equal(fold2nfold(fold_change(-6, c(3, -1, 6))),
-               nfold_change(-6, c(3, -1, 6)))
+  expect_equal(fold2nfold(fold_change(0, c(10, 0, 6))),
+               nfold_change(0, c(10, 0, 6)))
 })
 
 test_that("prop2nfold", {
   expect_equal(prop2nfold(prop_change(3, c(3, 1, 9))),
                nfold_change(3, c(3, 1, 9)))
-  expect_equal(prop2nfold(prop_change(1, c(10, -1, 6))),
-               nfold_change(1, c(10, -1, 6)))
-  expect_equal(prop2nfold(prop_change(-6, c(3, -1, 6))),
-               nfold_change(-6, c(3, -1, 6)))
+  expect_equal(prop2nfold(prop_change(1, c(10, 0, 6))),
+               nfold_change(1, c(10, 0, 6)))
+  expect_equal(prop2nfold(prop_change(-6, c(3, 0, 6))),
+               nfold_change(-6, c(3, 0, 6)))
 })
 
 test_that("nfold2prop", {

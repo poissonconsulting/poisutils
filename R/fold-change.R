@@ -10,7 +10,7 @@
 #' nfold_change(3, c(3, 1, 9))
 nfold_change <- function(x, y) {
   x <- y / x
-  ifelse(x >= 1, x - 1, -x^-1+1)
+  ifelse(x >= 1, x - 1, -x^-1 + 1)
 }
 
 #' Fold Change
@@ -24,8 +24,7 @@ nfold_change <- function(x, y) {
 #' @examples
 #' fold_change(3, c(3, 1, 9))
 fold_change <- function(x, y) {
-  x <- y / x
-  x
+  y / x
 }
 
 #' Proportional Change
@@ -77,7 +76,7 @@ nfold2prop <- function(x) {
   check_values(x, 1)
   if (!length(x))
     return(x)
-  ifelse(x >= 0, -(-x+1)^-1+1, -(x-1)^-1-1)
+  ifelse(x >= 1, x, -(x-1)^-1-1)
 }
 
 #' Fold to n-Fold Change
@@ -113,7 +112,7 @@ nfold2fold <- function(x) {
   check_values(x, c(0, NA_real_))
   if (!length(x))
     return(x)
-  ifelse(x >= 1, x+1, -(x-1)^-1)
+  ifelse(x >= 1, x + 1, -(x-1)^-1)
 }
 
 

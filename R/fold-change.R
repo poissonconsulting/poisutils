@@ -75,23 +75,6 @@ prop2nfold <- function(x) {
   ifelse(is.na(x) & x >= 1, x, -(x+1)^-1+1)
 }
 
-#' Proportional Change to Fold Change
-#'
-#' @param x A numeric vector of the proportional change
-#'
-#' @return A numeric vector of the fold change
-#' @export
-#'
-#' @examples
-#' fold_change(3, c(3, 1, 9))
-#' prop_change(3, c(3, 1, 9))
-#' prop2fold(prop_change(3, c(3, 1, 9)))
-prop2fold <- function(x) {
-  chk_numeric(x)
-  if(!length(x)) return(numeric(0))
-  ifelse(is.na(x) & x >= 1, x, -(x+1)^-1+1)
-}
-
 #' n-Fold Change to Proportional Change
 #'
 #' @param x A numeric vector of the proportional change

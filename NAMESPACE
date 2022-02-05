@@ -2,6 +2,7 @@
 
 export(error)
 export(fold2nfold)
+export(fold2prop)
 export(fold_change)
 export(is.named)
 export(is.syntactic)

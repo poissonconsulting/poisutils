@@ -10,9 +10,8 @@
 #' @examples
 #' ps_sma(1:4)
 ps_sma <- function(x, n = 1L, na.rm = FALSE) {
-  chk_whole_numeric(x)
+  chk_numeric(x)
   chk_count(n)
-  check_dim(n, values = c(0L, length(x)))
   chk_flag(na.rm)
   if(n == 0L) return(x)
 

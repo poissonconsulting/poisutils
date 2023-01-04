@@ -1,4 +1,3 @@
-
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <!-- badges: start -->
 
@@ -17,23 +16,19 @@ packages.
 
 ## Demonstration
 
-``` r
-library(poisutils)
+    library(poisutils)
 
-x <- 1
-is.named(x)
-#> [1] FALSE
-names(x) <- "one"
-is.named(x)
-#> [1] TRUE
-```
+    x <- 1
+    is.named(x)
+    #> [1] FALSE
+    names(x) <- "one"
+    is.named(x)
+    #> [1] TRUE
 
 ## Installation
 
-``` r
-# install.packages("devtools")
-devtools::install_github("poissonconsulting/poisutils")
-```
+    # install.packages("devtools")
+    devtools::install_github("poissonconsulting/poisutils")
 
 ## Contribution
 

@@ -19,8 +19,8 @@ ps_sma <- function(x, n = 1L, na.rm = FALSE) {
     return(x)
   }
 
-  start <- apply(data.frame(1, 1:length(x) - n), 1, max)
-  end <- apply(data.frame(length(x), 1:length(x) + n), 1, min)
+  start <- apply(data.frame(1, seq_along(x) - n), 1, max)
+  end <- apply(data.frame(length(x), seq_along(x) + n), 1, min)
   mapply(function(x, start, end) mean(x[start:end], na.rm = na.rm),
     start,
     end,

@@ -38,4 +38,3 @@ ps_warning <- function(..., call. = FALSE) {
 ps_message <- function(...) {
   message(...)
 }
-

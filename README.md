@@ -1,9 +1,8 @@
-
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <!-- badges: start -->
 
 [![stability-experimental](https://img.shields.io/badge/stability-experimental-orange.svg)](https://github.com/joethorley/stability-badges#experimental)
-[![R-CMD-check](https://github.com/poissonconsulting/poisutils/workflows/R-CMD-check/badge.svg)](https://github.com/poissonconsulting/poisutils/actions)
+[![R-CMD-check](https://github.com/poissonconsulting/poisutils/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/poissonconsulting/poisutils/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/poissonconsulting/poisutils/branch/master/graph/badge.svg)](https://codecov.io/gh/poissonconsulting/poisutils?branch=master)
 [![License:
@@ -17,23 +16,19 @@ packages.
 
 ## Demonstration
 
-``` r
-library(poisutils)
+    library(poisutils)
 
-x <- 1
-is.named(x)
-#> [1] FALSE
-names(x) <- "one"
-is.named(x)
-#> [1] TRUE
-```
+    x <- 1
+    is.named(x)
+    #> [1] FALSE
+    names(x) <- "one"
+    is.named(x)
+    #> [1] TRUE
 
 ## Installation
 
-``` r
-# install.packages("devtools")
-devtools::install_github("poissonconsulting/poisutils")
-```
+    # install.packages("devtools")
+    devtools::install_github("poissonconsulting/poisutils")
 
 ## Contribution
 

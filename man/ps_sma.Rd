@@ -11,7 +11,8 @@ ps_sma(x, n = 1L, na.rm = FALSE)
 
 \item{n}{A positive integer of the window before and after each value.}
 
-\item{na.rm}{A flag indicating whether to ignore missing values when calculating the mean.}
+\item{na.rm}{A flag indicating whether to ignore missing values when
+calculating the mean.}
 }
 \value{
 A double vector.

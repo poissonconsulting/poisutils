@@ -2,7 +2,7 @@
 #'
 #' @param x A numeric vector of values to round
 #' @param digits A count of the number of decimals for rounding
-#' @source \url{http://biostatmatt.com/archives/2902}
+#' @source <http://biostatmatt.com/archives/2902>
 #' @examples
 #' sum(c(0.33, 0.33, 0.33))
 #' round(c(0.33, 0.33, 0.33), 1)

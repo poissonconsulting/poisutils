@@ -1,5 +1,5 @@
 test_that("syntactic", {
-  expect_identical(is.syntactic(c("0", "x", "1x","x y", "x1")), c(FALSE, TRUE, FALSE, FALSE, TRUE))
+  expect_identical(is.syntactic(c("0", "x", "1x", "x y", "x1")), c(FALSE, TRUE, FALSE, FALSE, TRUE))
 })
 
 test_that("package", {

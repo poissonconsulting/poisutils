@@ -8,10 +8,13 @@ ps_create_dir <- function(dir, ask = TRUE) {
   chk_string(dir)
   chk_flag(ask)
 
-  if (dir.exists(dir)) return(invisible(TRUE))
+  if (dir.exists(dir)) {
+    return(invisible(TRUE))
+  }
 
-  if (ask && !yesno("Create directory '", dir, "'?"))
+  if (ask && !yesno("Create directory '", dir, "'?")) {
     return(invisible(FALSE))
+  }
 
   dir.create(path = dir, showWarnings = FALSE, recursive = TRUE)
 

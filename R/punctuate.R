@@ -11,10 +11,12 @@ ps_punctuate <- function(x, qualifier = "or") {
   chk_string(qualifier)
   if (is.logical(x) || is.integer(x) || is.numeric(x)) {
     x <- as.character(x)
-  } else
+  } else {
     x <- paste0("'", as.character(x), "'")
-  if (length(x) == 1)
+  }
+  if (length(x) == 1) {
     return(x)
+  }
   n <- length(x)
   paste(paste(x[-n], collapse = ", "), qualifier, x[n])
 }

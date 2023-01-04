@@ -2,11 +2,12 @@
 <!-- badges: start -->
 
 [![stability-experimental](https://img.shields.io/badge/stability-experimental-orange.svg)](https://github.com/joethorley/stability-badges#experimental)
-[![R-CMD-check](https://github.com/poissonconsulting/poisutils/workflows/R-CMD-check/badge.svg)](https://github.com/poissonconsulting/poisutils/actions)
+[![R-CMD-check](https://github.com/poissonconsulting/poisutils/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/poissonconsulting/poisutils/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/poissonconsulting/poisutils/branch/master/graph/badge.svg)](https://codecov.io/gh/poissonconsulting/poisutils?branch=master)
 [![License:
 MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
 <!-- badges: end -->
 
 # poisutils

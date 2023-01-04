@@ -10,11 +10,12 @@ is.syntactic(x)
 \item{x}{A character of possible variable names.}
 }
 \value{
-A logical vector indicating whether a syntactically correct variable name.
+A logical vector indicating whether a syntactically correct variable
+name.
 }
 \description{
 Is syntactic
 }
 \examples{
-is.syntactic(c("0", "x", "1x","x y", "x1"))
+is.syntactic(c("0", "x", "1x", "x y", "x1"))
 }

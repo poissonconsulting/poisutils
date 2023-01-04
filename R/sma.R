@@ -4,7 +4,8 @@
 #'
 #' @param x An integer or double vector.
 #' @param n A positive integer of the window before and after each value.
-#' @param na.rm A flag indicating whether to ignore missing values when calculating the mean.
+#' @param na.rm A flag indicating whether to ignore missing values when
+#'   calculating the mean.
 #' @return A double vector.
 #' @export
 #' @examples

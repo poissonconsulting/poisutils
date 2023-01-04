@@ -7,7 +7,6 @@
 coverage](https://codecov.io/gh/poissonconsulting/poisutils/branch/master/graph/badge.svg)](https://codecov.io/gh/poissonconsulting/poisutils?branch=master)
 [![License:
 MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-
 <!-- badges: end -->
 
 # poisutils

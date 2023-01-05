@@ -1,8 +1,8 @@
-#' Hexadecimal to Decimal PIT Tag Converter
+#' Hexadecimal to Decimal Code Converter
 #'
 #' @param hex A string of the hex code.
 #'
-#' @return An double.
+#' @return A double.
 #' @export
 #'
 #' @examples

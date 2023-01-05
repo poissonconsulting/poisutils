@@ -2,7 +2,7 @@
 % Please edit documentation in R/hex-to-dec-code.R
 \name{hex_to_dec_code}
 \alias{hex_to_dec_code}
-\title{Hexadecimal to Decimal PIT Tag Converter}
+\title{Hexadecimal to Decimal Code Converter}
 \usage{
 hex_to_dec_code(hex)
 }
@@ -10,10 +10,10 @@ hex_to_dec_code(hex)
 \item{hex}{A string of the hex code.}
 }
 \value{
-An double.
+A double.
 }
 \description{
-Hexadecimal to Decimal PIT Tag Converter
+Hexadecimal to Decimal Code Converter
 }
 \examples{
 hex_to_dec_code("349EA72A50")

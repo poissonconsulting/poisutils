@@ -10,7 +10,6 @@
 #' hex_to_dec_code("14A5D0BE89")
 hex_to_dec_code <- function(hex) {
   chk::chk_string(hex)
-  dec <- as.numeric(Rmpfr::mpfr(hex, base=16))
+  dec <- as.numeric(Rmpfr::mpfr(hex, base = 16))
   dec
 }
-

@@ -18,4 +18,5 @@ Hexadecimal to Decimal Code Converter
 \examples{
 hex_to_dec_code("349EA72A50")
 hex_to_dec_code("14A5D0BE89")
+hex_to_dec_code(c("14D", "E67"))
 }

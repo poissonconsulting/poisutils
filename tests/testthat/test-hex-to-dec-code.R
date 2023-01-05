@@ -13,3 +13,18 @@ test_that("correct type of output value", {
     "double"
   )
 })
+
+test_that("error when numeric value passed", {
+  expect_error(
+    hex_to_dec_code(12424543),
+    regexp = "`hex` must be character or factor"
+  )
+})
+
+test_that("pass when multiple values passed", {
+  dec_codes <- hex_to_dec_code(c("AD14", "BC87"))
+  expect_identical(
+    dec_codes,
+    c(44308, 48263)
+  )
+})

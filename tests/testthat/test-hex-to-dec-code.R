@@ -1,3 +1,10 @@
+test_that("default is to error", {
+  expect_error(
+    hex_to_dec_code(),
+    regexp = 'argument "hex" is missing, with no default'
+  )
+})
+
 test_that("code converted to correct value properly", {
   dec_code <- hex_to_dec_code("349EA72A50")
   expect_identical(

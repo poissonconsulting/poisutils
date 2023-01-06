@@ -16,6 +16,7 @@ Depends:
 Imports:
     chk,
     Rmpfr,
+    stringr,
     utils,
     yesno
 Suggests: 

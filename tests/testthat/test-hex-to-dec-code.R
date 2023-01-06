@@ -51,3 +51,19 @@ test_that("pass when multiple values passed with one being NA", {
     c(44308, 48263, NA_real_)
   )
 })
+
+test_that("returns NA when letters above F are passed (not hex letters)", {
+  dec_code <- hex_to_dec_code("G1")
+  expect_identical(
+    dec_code,
+    NA_real_
+  )
+})
+
+test_that("passes when various values are passed", {
+  dec_codes <- hex_to_dec_code(c("A1", NA_character_, "G1", "B1"))
+  expect_identical(
+    dec_codes,
+    c(161, NA_real_, NA_real_, 177)
+  )
+})

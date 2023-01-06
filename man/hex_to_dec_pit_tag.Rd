@@ -21,4 +21,5 @@ Convert Hexidecimal to Decimal PIT Tags
 hex_to_dec_pit_tag("349EA72A50")
 hex_to_dec_pit_tag("349EA70")
 hex_to_dec_pit_tag("349EA72A50000")
+hex_to_dec_pit_tag("349EA72A50", country_code = 124)
 }

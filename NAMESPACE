@@ -2,6 +2,7 @@
 
 export(error)
 export(hex_to_dec_code)
+export(hex_to_dec_pit_tag)
 export(is.named)
 export(is.syntactic)
 export(ps_create_dir)

@@ -22,10 +22,9 @@ test_that("output is 15 digits long when dec is 11 digits long", {
   expect_identical(nchar(dec_code), 15L)
 })
 
-test_that("output is 15 digits long when dec is less then 11 digits long", {
-  dec_code <- ps_hex_to_dec_pit_tag("A50")
-  expect_identical(dec_code, "900000000002640")
-  expect_identical(nchar(dec_code), 15L)
+test_that("output is NA when dec is less then 11 digits long", {
+  dec_code <- ps_hex_to_dec_pit_tag(c("A50", "11EA72A10"))
+  expect_identical(dec_code, c(NA_character_, NA_character_))
 })
 
 test_that("output is NA when dec outputted more then 12 digits long", {

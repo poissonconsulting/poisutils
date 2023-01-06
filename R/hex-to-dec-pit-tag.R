@@ -7,6 +7,9 @@
 #' @export
 #'
 #' @examples
+#' hex_to_dec_pit_tag("349EA72A50")
+#' hex_to_dec_pit_tag("349EA70")
+#' hex_to_dec_pit_tag("349EA72A50000")
 hex_to_dec_pit_tag <- function(hex, country_code = 900) {
   chk::chk_whole_number(country_code)
   dec <- hex_to_dec_code(hex)

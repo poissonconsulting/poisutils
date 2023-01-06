@@ -17,3 +17,8 @@ A string.
 \description{
 Convert Hexidecimal to Decimal PIT Tags
 }
+\examples{
+hex_to_dec_pit_tag("349EA72A50")
+hex_to_dec_pit_tag("349EA70")
+hex_to_dec_pit_tag("349EA72A50000")
+}

@@ -38,3 +38,8 @@ test_that("country code changes when passed", {
   expect_identical(dec_code, "800226000054864")
   expect_identical(nchar(dec_code), 15L)
 })
+
+test_that("passes when multiple values passed", {
+  dec_code <- hex_to_dec_pit_tag(c("349EA72A50", "349EA72A50"))
+  expect_identical(dec_code, c("900226000054864", "900226000054864"))
+})

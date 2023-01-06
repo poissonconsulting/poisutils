@@ -35,3 +35,19 @@ test_that("pass when multiple values passed", {
     c(44308, 48263)
   )
 })
+
+test_that("pass when NA passed", {
+  dec_codes <- hex_to_dec_code(NA_character_)
+  expect_identical(
+    dec_codes,
+    NA_real_
+  )
+})
+
+test_that("pass when multiple values passed with one being NA", {
+  dec_codes <- hex_to_dec_code(c("AD14", "BC87", NA_character_))
+  expect_identical(
+    dec_codes,
+    c(44308, 48263, NA_real_)
+  )
+})

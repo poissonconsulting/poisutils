@@ -43,3 +43,8 @@ test_that("passes when multiple values passed", {
   dec_code <- hex_to_dec_pit_tag(c("349EA72A50", "349EA72A50"))
   expect_identical(dec_code, c("900226000054864", "900226000054864"))
 })
+
+test_that("returns NA when passed", {
+  dec_code <- hex_to_dec_pit_tag(c("NA", "349EA72A50"))
+  expect_identical(dec_code, c(NA_character_, "900226000054864"))
+})

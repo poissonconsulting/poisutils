@@ -11,6 +11,8 @@
 #' hex_to_dec_code(c("14D", "E67"))
 hex_to_dec_code <- function(hex) {
   chk::chk_character_or_factor(hex)
+  hex[is.na(hex)] <- "NaN"
   dec <- as.numeric(Rmpfr::mpfr(hex, base = 16))
+  dec[is.nan(dec)] <- NA
   dec
 }

@@ -18,8 +18,11 @@ hex_to_dec_pit_tag <- function(hex, country_code = 900) {
   vals
 }
 
-
 length_test_append_country <- function(dec, country_code) {
+  if (is.na(dec)) {
+    return(NA_character_)
+  }
+
   dec_length <- nchar(dec)
   if (dec_length >= 13) {
     return(NA_character_)

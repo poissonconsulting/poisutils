@@ -7,11 +7,11 @@
 #' @export
 #'
 #' @examples
-#' hex_to_dec_pit_tag("349EA72A50")
-#' hex_to_dec_pit_tag("349EA70")
-#' hex_to_dec_pit_tag("349EA72A50000")
-#' hex_to_dec_pit_tag("349EA72A50", country_code = 124)
-hex_to_dec_pit_tag <- function(hex, country_code = 900) {
+#' ps_hex_to_dec_pit_tag("349EA72A50")
+#' ps_hex_to_dec_pit_tag("349EA70")
+#' ps_hex_to_dec_pit_tag("349EA72A50000")
+#' ps_hex_to_dec_pit_tag("349EA72A50", country_code = 124)
+ps_hex_to_dec_pit_tag <- function(hex, country_code = 900) {
   chk::chk_whole_number(country_code)
   dec <- hex_to_dec_code(hex)
   vals <- vapply(dec, length_test_append_country, country_code, FUN.VALUE = "")

@@ -15,6 +15,10 @@ A double.
 \description{
 Hexadecimal to Decimal Code Converter
 }
+\details{
+The function will return NA if non HEX letters are present. The
+only letters that can be present in the HEX codes are A to F.
+}
 \examples{
 hex_to_dec_code("349EA72A50")
 hex_to_dec_code("14A5D0BE89")

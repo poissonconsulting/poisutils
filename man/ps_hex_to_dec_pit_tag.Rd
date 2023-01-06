@@ -17,6 +17,13 @@ A string.
 \description{
 Convert Hexidecimal to Decimal PIT Tags
 }
+\details{
+If the decimal code is 11 digits long a zero is padded to the front
+of the value before the country code is added. If the code is 10 or less
+digits long then NA will be returned. Any decimal codes 13 or more digits
+long will return NA. If the code is 12 digits long the country code is
+appended directly to the decimal value.
+}
 \examples{
 ps_hex_to_dec_pit_tag("349EA72A50")
 ps_hex_to_dec_pit_tag("349EA70")

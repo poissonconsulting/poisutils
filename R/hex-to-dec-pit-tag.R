@@ -11,16 +11,24 @@ hex_to_dec_pit_tag <- function(hex, country_code = 900) {
   chk::chk_whole_number(country_code)
 
   dec <- hex_to_dec_code(hex)
+  dec_length <- stringr::str_length(dec)
 
-  # need to make code 12 digits long
-  if (dec == 12) {
+  # codes have to be 12 digits long
+  if (dec_length == 12) {
     pit_tag_code <- as.character(paste0(country_code, dec))
-    return()
+    return(pit_tag_code)
   }
 
+  if (dec_length >= 13) {
+    return(NA_character_)
+  }
 
+  if (dec_length <= 11) {
+    pit_tag_code <- stringr::str_pad(dec, 12, side = "left")
+    pit_tag_code <- as.character(paste0(country_code, dec))
+    return(pit_tag_code)
+  }
 
-  hex_to_dec_code
-
+  print("never here ... ?")
 
 }

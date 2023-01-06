@@ -8,10 +8,10 @@
 #'  only letters that can be present in the HEX codes are A to F.
 #'
 #' @examples
-#' hex_to_dec_code("349EA72A50")
-#' hex_to_dec_code("14A5D0BE89")
-#' hex_to_dec_code(c("14D", "E67"))
-hex_to_dec_code <- function(hex) {
+#' hex_to_dec("349EA72A50")
+#' hex_to_dec("14A5D0BE89")
+#' hex_to_dec(c("14D", "E67"))
+hex_to_dec <- function(hex) {
   chk::chk_character_or_factor(hex)
   # replace any values non Hex letters with missing values
   hex[stringr::str_detect(hex, "[G|H|I|J|K|L|M|N|O|P|Q|R|S|T|U|V|W|X|Y|Z]")] <-

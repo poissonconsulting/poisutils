@@ -20,6 +20,6 @@ hex_to_dec <- function(hex) {
   hex[is.na(hex)] <- "NaN"
   dec <- as.numeric(Rmpfr::mpfr(hex, base = 16))
   # switch NaN's back to regular NA's
-  dec[is.nan(dec)] <- NA
+  dec[is.nan(dec)] <- NA_real_
   dec
 }

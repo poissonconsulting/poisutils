@@ -67,3 +67,18 @@ test_that("passes when various values are passed", {
     c(161, NA_real_, NA_real_, 177)
   )
 })
+
+test_that("passes when zero length character vector passed", {
+  dec_codes <- hex_to_dec(character())
+  expect_identical(
+    dec_codes,
+    numeric()
+  )
+})
+
+test_that("errors when zero length numeric vector passed", {
+  expect_error(
+    hex_to_dec(numeric()),
+    regexp = "`hex` must be character or factor\\."
+  )
+})

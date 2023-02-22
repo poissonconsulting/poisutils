@@ -47,3 +47,13 @@ test_that("returns NA when passed", {
   dec_code <- ps_h2d_tag(c("NA", "349EA72A50"))
   expect_identical(dec_code, c(NA_character_, "900226000054864"))
 })
+
+test_that("returns NA when passed two NA's", {
+  dec_code <- ps_h2d_tag(c("NA", NA_character_))
+  expect_identical(dec_code, c(NA_character_, NA_character_))
+})
+
+test_that("one fully numeric value and another alpha numeric value works", {
+  dec_code <- ps_h2d_tag(c("1234538643", "349EA72A50"))
+  expect_identical(dec_code, c("900078187300419", "900226000054864"))
+})

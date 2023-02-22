@@ -19,7 +19,10 @@
 ps_h2d_tag <- function(hex, country_code = 900) {
   chk::chk_whole_number(country_code)
   dec <- hex_to_dec(hex)
-  vals <- vapply(dec, length_test_append_country, country_code, FUN.VALUE = "")
+  vals <- vapply(
+    dec, length_test_append_country, country_code,
+    FUN.VALUE = "", USE.NAMES = FALSE
+  )
   vals
 }
 

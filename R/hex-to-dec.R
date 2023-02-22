@@ -2,7 +2,7 @@
 #'
 #' @param hex A string of the hex code.
 #'
-#' @return A double.
+#' @return The dec code as a character.
 #' @export
 #' @details The function will return NA if non HEX letters are present. The
 #'  only letters that can be present in the HEX codes are A to F.
@@ -22,5 +22,7 @@ hex_to_dec <- function(hex) {
   dec <- as.numeric(Rmpfr::mpfr(hex, base = 16))
   # switch NaN's back to regular NA's
   dec[is.nan(dec)] <- NA_real_
+  # convert to character before output
+  dec <- as.character(dec)
   dec
 }

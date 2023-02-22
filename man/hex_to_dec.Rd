@@ -10,7 +10,7 @@ hex_to_dec(hex)
 \item{hex}{A string of the hex code.}
 }
 \value{
-A double.
+The dec code as a character.
 }
 \description{
 Hexadecimal to Decimal Code Converter

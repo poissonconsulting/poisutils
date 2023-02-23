@@ -22,9 +22,18 @@ test_that("output is 15 digits long when dec is 11 digits long", {
   expect_identical(nchar(dec_code), 15L)
 })
 
-test_that("output is NA when dec is less then 11 digits long", {
-  dec_code <- ps_h2d_tag(c("A50", "11EA72A10"))
-  expect_identical(dec_code, c(NA_character_, NA_character_))
+test_that("output is 15 digits long when dec is 10 digits long", {
+  dec_code <- ps_h2d_tag("3BF7871F")
+  expect_identical(dec_code, "900001006077727")
+  expect_identical(nchar(dec_code), 15L)
+})
+
+test_that("output correct when dec codes are less then 12 digits long", {
+  dec_code <- ps_h2d_tag(c("A50", "11EA72A10", "1B"))
+  expect_identical(
+    dec_code,
+    c("900000000002640", "900004809239056", "900000000000027")
+  )
 })
 
 test_that("output is NA when dec outputted more then 12 digits long", {

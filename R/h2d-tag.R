@@ -5,11 +5,11 @@
 #'
 #' @return A string.
 #' @export
-#' @details If the decimal code is 11 digits long a zero is padded to the front
-#'  of the value before the country code is added. If the code is 10 or less
-#'  digits long then NA will be returned. Any decimal codes 13 or more digits
-#'  long will return NA. If the code is 12 digits long the country code is
-#'  appended directly to the decimal value.
+#' @details Any decimal codes 13 or more digits long will return NA.  If the
+#'   code is 12 digits long the country code is appended directly to the decimal
+#'   value. If the decimal code is 11 digits or less then the decimal code is
+#'   padded with zeros on the front to ensure the code is 12 digits long before
+#'   appending the country code to the code.
 #'
 #' @examples
 #' ps_h2d_tag("349EA72A50")
@@ -32,14 +32,14 @@ length_test_append_country <- function(dec, country_code) {
   }
 
   dec_length <- nchar(dec)
-  if (dec_length >= 13 || dec_length < 11) {
+  if (dec_length >= 13) {
     return(NA_character_)
   }
-  if (dec_length == 11) {
-    pit_tag_code <- stringr::str_pad(dec, 12, side = "left", pad = "0")
-    pit_tag_code <- as.character(paste0(country_code, pit_tag_code))
+  if (dec_length == 12) {
+    pit_tag_code <- as.character(paste0(country_code, dec))
     return(pit_tag_code)
   }
-  pit_tag_code <- as.character(paste0(country_code, dec))
+  pit_tag_code <- stringr::str_pad(dec, 12, side = "left", pad = "0")
+  pit_tag_code <- as.character(paste0(country_code, pit_tag_code))
   pit_tag_code
 }

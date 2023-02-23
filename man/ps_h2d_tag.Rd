@@ -18,11 +18,11 @@ A string.
 Convert Hexidecimal to Decimal PIT Tags
 }
 \details{
-If the decimal code is 11 digits long a zero is padded to the front
-of the value before the country code is added. If the code is 10 or less
-digits long then NA will be returned. Any decimal codes 13 or more digits
-long will return NA. If the code is 12 digits long the country code is
-appended directly to the decimal value.
+Any decimal codes 13 or more digits long will return NA.  If the
+code is 12 digits long the country code is appended directly to the decimal
+value. If the decimal code is 11 digits or less then the decimal code is
+padded with zeros on the front to ensure the code is 12 digits long before
+appending the country code to the code.
 }
 \examples{
 ps_h2d_tag("349EA72A50")

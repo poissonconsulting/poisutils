@@ -31,6 +31,9 @@
     <loc>/reference/error.html</loc>
   </url>
   <url>
+    <loc>/reference/hex_to_dec.html</loc>
+  </url>
+  <url>
     <loc>/reference/index.html</loc>
   </url>
   <url>
@@ -47,6 +50,9 @@
   </url>
   <url>
     <loc>/reference/ps_error.html</loc>
+  </url>
+  <url>
+    <loc>/reference/ps_h2d_tag.html</loc>
   </url>
   <url>
     <loc>/reference/ps_message.html</loc>

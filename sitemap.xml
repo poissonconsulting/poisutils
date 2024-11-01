@@ -1,90 +1,31 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>/404.html</loc>
-  </url>
-  <url>
-    <loc>/CODE_OF_CONDUCT.html</loc>
-  </url>
-  <url>
-    <loc>/CONTRIBUTING.html</loc>
-  </url>
-  <url>
-    <loc>/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>/SUPPORT.html</loc>
-  </url>
-  <url>
-    <loc>/authors.html</loc>
-  </url>
-  <url>
-    <loc>/index.html</loc>
-  </url>
-  <url>
-    <loc>/news/index.html</loc>
-  </url>
-  <url>
-    <loc>/pull_request_template.html</loc>
-  </url>
-  <url>
-    <loc>/reference/error.html</loc>
-  </url>
-  <url>
-    <loc>/reference/hex_to_dec.html</loc>
-  </url>
-  <url>
-    <loc>/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/is.named.html</loc>
-  </url>
-  <url>
-    <loc>/reference/is.syntactic.html</loc>
-  </url>
-  <url>
-    <loc>/reference/poisutils.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ps_create_dir.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ps_error.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ps_h2d_tag.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ps_message.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ps_nfold_change.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ps_plural.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ps_prop2nfold_change.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ps_prop_change.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ps_punctuate.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ps_rename_object.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ps_round_preserve_sum.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ps_sma.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ps_warning.html</loc>
-  </url>
-  <url>
-    <loc>/reference/user.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>/404.html</loc></url>
+<url><loc>/CODE_OF_CONDUCT.html</loc></url>
+<url><loc>/CONTRIBUTING.html</loc></url>
+<url><loc>/LICENSE-text.html</loc></url>
+<url><loc>/SUPPORT.html</loc></url>
+<url><loc>/authors.html</loc></url>
+<url><loc>/index.html</loc></url>
+<url><loc>/news/index.html</loc></url>
+<url><loc>/reference/error.html</loc></url>
+<url><loc>/reference/hex_to_dec.html</loc></url>
+<url><loc>/reference/index.html</loc></url>
+<url><loc>/reference/is.named.html</loc></url>
+<url><loc>/reference/is.syntactic.html</loc></url>
+<url><loc>/reference/poisutils.html</loc></url>
+<url><loc>/reference/ps_create_dir.html</loc></url>
+<url><loc>/reference/ps_error.html</loc></url>
+<url><loc>/reference/ps_h2d_tag.html</loc></url>
+<url><loc>/reference/ps_message.html</loc></url>
+<url><loc>/reference/ps_nfold_change.html</loc></url>
+<url><loc>/reference/ps_plural.html</loc></url>
+<url><loc>/reference/ps_prop2nfold_change.html</loc></url>
+<url><loc>/reference/ps_prop_change.html</loc></url>
+<url><loc>/reference/ps_punctuate.html</loc></url>
+<url><loc>/reference/ps_rename_object.html</loc></url>
+<url><loc>/reference/ps_round_preserve_sum.html</loc></url>
+<url><loc>/reference/ps_sma.html</loc></url>
+<url><loc>/reference/ps_warning.html</loc></url>
+<url><loc>/reference/user.html</loc></url>
 </urlset>
+

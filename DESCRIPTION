@@ -1,11 +1,11 @@
 Package: poisutils
 Title: Poisson Consulting's Utility Functions
 Version: 0.0.0.9010
-Authors@R: 
-    person(given = "Joe",
-           family = "Thorley",
-           role = c("aut", "cre"),
-           email = "joe@poissonconsulting.ca")
+Authors@R: c(
+    person("Joe", "Thorley", , "joe@poissonconsulting.ca", role = c("aut", "cre")),
+    person("Ayla", "Pearson", , "ayla@poissonconsulting.ca", role = "ctb",
+           comment = c(ORCID = "0000-0001-7388-1222"))
+  )
 Description: Utility functions for Poisson Consulting's scripts and
     packages.
 License: MIT + file LICENSE
@@ -22,9 +22,9 @@ Imports:
 Suggests: 
     covr,
     testthat (>= 3.0.0)
+Config/Needs/website: poissonconsulting/poissontemplate
 Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.2.3
 Roxygen: list(markdown = TRUE)
-Config/Needs/website: poissonconsulting/poissontemplate
+RoxygenNote: 7.3.2.9000

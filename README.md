@@ -1,12 +1,13 @@
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <!-- badges: start -->
 
 [![stability-experimental](https://img.shields.io/badge/stability-experimental-orange.svg)](https://github.com/joethorley/stability-badges#experimental)
 [![R-CMD-check](https://github.com/poissonconsulting/poisutils/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/poissonconsulting/poisutils/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
-coverage](https://codecov.io/gh/poissonconsulting/poisutils/branch/master/graph/badge.svg)](https://codecov.io/gh/poissonconsulting/poisutils?branch=master)
+coverage](https://codecov.io/gh/poissonconsulting/poisutils/graph/badge.svg)](https://app.codecov.io/gh/poissonconsulting/poisutils)
 [![License:
-MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/license/mit/)
 <!-- badges: end -->
 
 # poisutils
@@ -16,19 +17,23 @@ packages.
 
 ## Demonstration
 
-    library(poisutils)
+``` r
+library(poisutils)
 
-    x <- 1
-    is.named(x)
-    #> [1] FALSE
-    names(x) <- "one"
-    is.named(x)
-    #> [1] TRUE
+x <- 1
+is.named(x)
+#> [1] FALSE
+names(x) <- "one"
+is.named(x)
+#> [1] TRUE
+```
 
 ## Installation
 
-    # install.packages("devtools")
-    devtools::install_github("poissonconsulting/poisutils")
+``` r
+# install.packages("devtools")
+devtools::install_github("poissonconsulting/poisutils")
+```
 
 ## Contribution
 

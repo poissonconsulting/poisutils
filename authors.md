@@ -16,13 +16,13 @@ Source:
 [`DESCRIPTION`](https://github.com/poissonconsulting/poisutils/blob/main/DESCRIPTION)
 
 Thorley J (2026). *poisutils: Poisson Consulting's Utility Functions*. R
-package version 0.0.0.9010,
+package version 0.0.0.9011,
 <https://github.com/poissonconsulting/poisutils>.
 
     @Manual{,
       title = {poisutils: Poisson Consulting's Utility Functions},
       author = {Joe Thorley},
       year = {2026},
-      note = {R package version 0.0.0.9010},
+      note = {R package version 0.0.0.9011},
       url = {https://github.com/poissonconsulting/poisutils},
     }

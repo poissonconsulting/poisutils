@@ -1,5 +1,10 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+# poisutils 0.0.0.9012
+
+- Same as previous version.
+
+
 # poisutils 0.0.0.9011
 
 * Add fledge-bump workflow

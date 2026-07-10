@@ -12,7 +12,9 @@ ps_rename_object <- function(x, new_name, envir = parent.frame()) {
 
   x_name <- deparse(substitute(x))
 
-  if (!is.syntactic(x_name)) ps_error("x must be a single R object")
+  if (!is.syntactic(x_name)) {
+    ps_error("x must be a single R object")
+  }
 
   assign(new_name, x, envir = envir)
   rm(list = x_name, envir = envir)
